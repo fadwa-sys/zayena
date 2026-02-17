@@ -1,218 +1,154 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nos Produits | Zayena Olive</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nos Produits | Zayena Olive</title>
+
+  <!-- Tailwind CDN (no build required, GitHub-friendly) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Brand Theme Variables -->
+  <style>
+    :root {
+      --background: #fafaf5;
+      --foreground: #1f2933;
+      --primary: #3f6f3c;
+      --secondary: #e6edd9;
+      --accent: #d97706;
+      --border: #e5e7eb;
+      --radius: 0.625rem;
+    }
+
+    body {
+      background-color: var(--background);
+      color: var(--foreground);
+    }
+  </style>
+
+  <!-- Tailwind Config Override -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            background: "var(--background)",
+            foreground: "var(--foreground)",
+            primary: "var(--primary)",
+            secondary: "var(--secondary)",
+            accent: "var(--accent)",
+            border: "var(--border)",
+          },
+          borderRadius: {
+            xl: "var(--radius)",
+          },
+        },
+      },
+    };
+  </script>
 </head>
-<body class="bg-white text-slate-900">
 
-    <header class="border-b sticky top-0 bg-white/90 backdrop-blur-sm z-50">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="index.html" class="font-bold text-xl text-emerald-900 uppercase tracking-wider">ZAYENA OLIVE</a>
-            <nav class="hidden md:flex gap-8 text-sm font-medium">
-                <a href="index.html" class="hover:text-emerald-700 transition">Accueil</a>
-                <a href="about.html" class="hover:text-emerald-700 transition">À Propos</a>
-                <a href="product.html" class="text-emerald-700 font-bold border-b-2 border-emerald-700">Produits</a>
-                <a href="contact.html" class="hover:text-emerald-700 transition">Contact</a>
-            </nav>
-            <div class="flex items-center gap-4">
-                <a href="checkout.html" class="relative p-2 text-slate-600 hover:text-emerald-700">
-                    <i class="fas fa-shopping-basket text-xl"></i>
-                    <span class="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] font-bold px-1.5 rounded-full">0</span>
-                </a>
-            </div>
-        </div>
-    </header>
+<body class="bg-background text-foreground">
 
-    <section class="bg-emerald-50 py-12">
-        <div class="max-w-7xl mx-auto px-6">
-            <h1 class="text-4xl font-bold text-emerald-900 mb-2">Nos Produits</h1>
-            <p class="text-lg text-emerald-700/80">
-                Explorez notre collection complète de tartinades d'olive marocaines authentiques.
-            </p>
-        </div>
-    </section>
+<!-- ================= HEADER ================= -->
+<header class="border-b sticky top-0 bg-white/90 backdrop-blur z-50">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
-    <div class="max-w-7xl mx-auto px-6 py-12">
-        <div class="grid lg:grid-cols-4 gap-12">
-            
-            <aside class="lg:col-span-1 space-y-8">
-                <div>
-                    <h3 class="font-bold text-lg mb-6 flex items-center gap-2">
-                        <i class="fas fa-filter text-emerald-600"></i> Filtres
-                    </h3>
-                    
-                    <div class="space-y-4">
-                        <h4 class="font-semibold text-slate-700 uppercase text-xs tracking-widest">Catégorie</h4>
-                        <div class="flex flex-col gap-2">
-                            <button class="text-left px-4 py-2 rounded-lg bg-emerald-800 text-white font-medium">Tous</button>
-                            <button class="text-left px-4 py-2 rounded-lg hover:bg-emerald-50 text-slate-600 transition">Agrumes</button>
-                            <button class="text-left px-4 py-2 rounded-lg hover:bg-emerald-50 text-slate-600 transition">Herbes</button>
-                            <button class="text-left px-4 py-2 rounded-lg hover:bg-emerald-50 text-slate-600 transition">Épicé</button>
-                            <button class="text-left px-4 py-2 rounded-lg hover:bg-emerald-50 text-slate-600 transition">Premium</button>
-                            <button class="text-left px-4 py-2 rounded-lg hover:bg-emerald-50 text-slate-600 transition">Ensemble</button>
-                        </div>
-                    </div>
-                </div>
+    <!-- LOGO -->
+    <a href="index.html" class="flex items-center">
+      <img
+        src="PASTE_DIRECT_IMAGE_URL_HERE"
+        alt="Zayena Olive Logo"
+        class="h-10 w-auto object-contain"
+      />
+    </a>
 
-                <div class="space-y-4">
-                    <h4 class="font-semibold text-slate-700 uppercase text-xs tracking-widest">Trier par</h4>
-                    <select class="w-full p-3 border border-slate-200 rounded-xl bg-white outline-none focus:ring-2 focus:ring-emerald-500">
-                        <option>En Vedette</option>
-                        <option>Prix: Bas à Haut</option>
-                        <option>Prix: Haut à Bas</option>
-                        <option>Mieux Noté</option>
-                    </select>
-                </div>
-            </aside>
+    <!-- NAVIGATION -->
+    <nav class="hidden md:flex gap-8 text-sm font-medium">
+      <a href="index.html" class="hover:text-primary">Accueil</a>
+      <a href="about.html" class="hover:text-primary">À Propos</a>
+      <a href="product.html" class="text-primary font-bold border-b-2 border-primary">Produits</a>
+      <a href="contact.html" class="hover:text-primary">Contact</a>
+    </nav>
 
-            <div class="lg:col-span-3">
-                <div class="mb-8 flex justify-between items-center">
-                    <p class="text-slate-500">Affichage de <span class="font-bold text-slate-900">6</span> produits</p>
-                </div>
+    <!-- CART -->
+    <a href="checkout.html" class="relative p-2 text-slate-600 hover:text-primary">
+      <i class="fas fa-shopping-basket text-xl"></i>
+      <span class="absolute top-0 right-0 bg-primary text-white text-[10px] px-1.5 rounded-full">0</span>
+    </a>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    
-                    <div class="group bg-white border border-slate-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
-                        <div class="aspect-square bg-slate-100 relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1541012436513-d658fc93c11f?q=80&w=800" alt="Olive-Citron" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">Agrumes</span>
-                            <h3 class="font-bold text-lg mb-2 text-slate-800">Olive-Citron</h3>
-                            <p class="text-slate-500 text-sm mb-4 flex-1">Mélange frais de citron et olive avec une saveur vive et zestée.</p>
-                            <div class="flex items-center gap-1 text-amber-400 text-xs mb-4">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                                <span class="text-slate-400 ml-1">4.8 (124)</span>
-                            </div>
-                            <div class="flex items-center justify-between mt-auto">
-                                <span class="text-xl font-bold text-emerald-900">28 dh</span>
-                                <button class="bg-emerald-800 hover:bg-emerald-900 text-white p-2.5 rounded-lg transition">
-                                    <i class="fas fa-cart-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+  </div>
+</header>
 
-                    <div class="group bg-white border border-slate-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
-                        <div class="aspect-square bg-slate-100 relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=80&w=800" alt="Thym" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">Herbes</span>
-                            <h3 class="font-bold text-lg mb-2 text-slate-800">Thym</h3>
-                            <p class="text-slate-500 text-sm mb-4 flex-1">Tartinade d'olive infusée au thym avec des notes terreuses.</p>
-                            <div class="flex items-center gap-1 text-amber-400 text-xs mb-4">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                                <span class="text-slate-400 ml-1">4.9 (98)</span>
-                            </div>
-                            <div class="flex items-center justify-between mt-auto">
-                                <span class="text-xl font-bold text-emerald-900">28 dh</span>
-                                <button class="bg-emerald-800 hover:bg-emerald-900 text-white p-2.5 rounded-lg transition">
-                                    <i class="fas fa-cart-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+<!-- ================= HERO ================= -->
+<section class="bg-secondary py-12">
+  <div class="max-w-7xl mx-auto px-6">
+    <h1 class="text-4xl font-bold text-primary mb-2">Nos Produits</h1>
+    <p class="text-lg text-primary/80">
+      Explorez notre collection complète de tartinades d'olive marocaines authentiques.
+    </p>
+  </div>
+</section>
 
-                    <div class="group bg-white border border-slate-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
-                        <div class="aspect-square bg-slate-100 relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1514733670139-4d87a1941d55?q=80&w=800" alt="Harissa" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <span class="text-[10px] font-bold text-red-600 uppercase tracking-widest mb-1">Épicé</span>
-                            <h3 class="font-bold text-lg mb-2 text-slate-800">Harissa</h3>
-                            <p class="text-slate-500 text-sm mb-4 flex-1">Mélange épicé harissa et olive pour des saveurs audacieuses.</p>
-                            <div class="flex items-center gap-1 text-amber-400 text-xs mb-4">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-                                <span class="text-slate-400 ml-1">4.7 (156)</span>
-                            </div>
-                            <div class="flex items-center justify-between mt-auto">
-                                <span class="text-xl font-bold text-emerald-900">30 dh</span>
-                                <button class="bg-emerald-800 hover:bg-emerald-900 text-white p-2.5 rounded-lg transition">
-                                    <i class="fas fa-cart-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+<!-- ================= MAIN ================= -->
+<main class="max-w-7xl mx-auto px-6 py-12 grid lg:grid-cols-4 gap-12">
 
-                    <div class="group bg-white border border-slate-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
-                        <div class="aspect-square bg-slate-100 relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=800" alt="Persil" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">Herbes</span>
-                            <h3 class="font-bold text-lg mb-2 text-slate-800">Persil</h3>
-                            <p class="text-slate-500 text-sm mb-4 flex-1">Combinaison de persil et olive avec un goût frais.</p>
-                            <div class="flex items-center gap-1 text-amber-400 text-xs mb-4">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                                <span class="text-slate-400 ml-1">4.8 (87)</span>
-                            </div>
-                            <div class="flex items-center justify-between mt-auto">
-                                <span class="text-xl font-bold text-emerald-900">28 dh</span>
-                                <button class="bg-emerald-800 hover:bg-emerald-900 text-white p-2.5 rounded-lg transition">
-                                    <i class="fas fa-cart-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+<!-- FILTERS -->
+<aside class="space-y-8">
+  <h3 class="font-bold text-lg flex items-center gap-2">
+    <i class="fas fa-filter text-primary"></i> Filtres
+  </h3>
+  <div class="space-y-2">
+    <button class="w-full px-4 py-2 bg-primary text-white rounded-xl">Tous</button>
+    <button class="w-full px-4 py-2 hover:bg-secondary rounded-xl">Agrumes</button>
+    <button class="w-full px-4 py-2 hover:bg-secondary rounded-xl">Herbes</button>
+    <button class="w-full px-4 py-2 hover:bg-secondary rounded-xl">Épicé</button>
+    <button class="w-full px-4 py-2 hover:bg-secondary rounded-xl">Premium</button>
+  </div>
+</aside>
 
-                    <div class="group bg-white border-2 border-emerald-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col relative">
-                        <div class="absolute top-3 right-3 bg-emerald-800 text-white text-[10px] font-bold px-3 py-1 rounded-full z-10">PREMIUM</div>
-                        <div class="aspect-square bg-slate-100 relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1541012436513-d658fc93c11f?q=80&w=800" alt="Premium" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">Premium</span>
-                            <h3 class="font-bold text-lg mb-2 text-slate-800">Sélection Premium</h3>
-                            <p class="text-slate-500 text-sm mb-4 flex-1">Mélange luxe de nos meilleures olives et ingrédients.</p>
-                            <div class="flex items-center gap-1 text-amber-400 text-xs mb-4">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                                <span class="text-slate-400 ml-1">5.0 (45)</span>
-                            </div>
-                            <div class="flex items-center justify-between mt-auto">
-                                <span class="text-xl font-bold text-emerald-900">30 dh</span>
-                                <button class="bg-emerald-800 hover:bg-emerald-900 text-white p-2.5 rounded-lg transition">
-                                    <i class="fas fa-cart-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+<!-- PRODUCTS -->
+<section class="lg:col-span-3 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                    <div class="group bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
-                        <div class="aspect-square bg-slate-800 relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=80&w=800" alt="Pack Mixte" class="w-full h-full object-cover group-hover:scale-110 opacity-80 transition duration-500">
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest mb-1">Ensemble</span>
-                            <h3 class="font-bold text-lg mb-2 text-white">Pack Mixte (4 Saveurs)</h3>
-                            <p class="text-slate-400 text-sm mb-4 flex-1">Essayez les quatre saveurs dans un pack pratique.</p>
-                            <div class="flex items-center gap-1 text-amber-400 text-xs mb-4">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                                <span class="text-slate-500 ml-1">4.9 (203)</span>
-                            </div>
-                            <div class="flex items-center justify-between mt-auto">
-                                <span class="text-xl font-bold text-white">110 dh</span>
-                                <button class="bg-emerald-500 hover:bg-emerald-400 text-slate-900 p-2.5 rounded-lg transition font-bold">
-                                    <i class="fas fa-shopping-bag"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+<!-- PRODUCT CARD -->
+<div class="bg-white border rounded-xl overflow-hidden hover:shadow-xl transition flex flex-col">
+  <img
+    src="https://images.unsplash.com/photo-1541012436513-d658fc93c11f?q=80&w=800"
+    alt="Olive Citron"
+    class="aspect-square object-cover"
+  />
+  <div class="p-6 flex flex-col flex-1">
+    <span class="text-xs font-bold text-primary uppercase">Agrumes</span>
+    <h3 class="font-bold text-lg mt-1">Olive-Citron</h3>
+    <p class="text-sm text-slate-500 flex-1 mt-2">
+      Mélange frais de citron et olive avec une saveur vive.
+    </p>
+    <div class="flex justify-between items-center mt-4">
+      <span class="text-xl font-bold text-primary">28 dh</span>
+      <button class="bg-primary text-white p-2 rounded-lg">
+        <i class="fas fa-cart-plus"></i>
+      </button>
     </div>
+  </div>
+</div>
 
-    <footer class="bg-slate-50 border-t py-12 mt-20">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <p class="text-slate-500 text-sm">&copy; 2026 Zayena Olive. Fait avec passion à Marrakech.</p>
-        </div>
-    </footer>
+<!-- DUPLICATE PRODUCT CARDS AS NEEDED -->
+
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-slate-50 border-t py-12 text-center">
+  <p class="text-slate-500 text-sm">
+    &copy; 2026 Zayena Olive. Fait avec passion à Marrakech.
+  </p>
+</footer>
 
 </body>
 </html>
