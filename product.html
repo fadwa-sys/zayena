@@ -1,154 +1,173 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nos Produits | Zayena Olive</title>
-
-  <!-- Tailwind CDN (no build required, GitHub-friendly) -->
+  <title>Boutique | Zayena Olive</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
 
-  <!-- Font Awesome -->
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    rel="stylesheet"
-  />
-
-  <!-- Brand Theme Variables -->
   <style>
     :root {
-      --background: #fafaf5;
-      --foreground: #1f2933;
-      --primary: #3f6f3c;
+      --background: #f8f8f2; 
+      --primary: #5b6b1a;    /* Votre Vert Olive */
       --secondary: #e6edd9;
-      --accent: #d97706;
-      --border: #e5e7eb;
-      --radius: 0.625rem;
+      --accent: #a33b2e;     /* Votre Ocre */
     }
-
-    body {
-      background-color: var(--background);
-      color: var(--foreground);
-    }
+    body { background-color: var(--background); }
+    .filter-btn.active { background-color: var(--primary); color: white; }
   </style>
 
-  <!-- Tailwind Config Override -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            background: "var(--background)",
-            foreground: "var(--foreground)",
-            primary: "var(--primary)",
-            secondary: "var(--secondary)",
-            accent: "var(--accent)",
-            border: "var(--border)",
-          },
-          borderRadius: {
-            xl: "var(--radius)",
-          },
-        },
-      },
-    };
+            primary: "#5b6b1a",
+            background: "#f8f8f2",
+            accent: "#a33b2e",
+          }
+        }
+      }
+    }
   </script>
 </head>
 
-<body class="bg-background text-foreground">
+<body class="text-slate-800">
 
-<!-- ================= HEADER ================= -->
-<header class="border-b sticky top-0 bg-white/90 backdrop-blur z-50">
+<header class="border-b sticky top-0 bg-white/90 backdrop-blur-md z-50">
   <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-
-    <!-- LOGO -->
-    <a href="index.html" class="flex items-center">
-      <img
-        src="PASTE_DIRECT_IMAGE_URL_HERE"
-        alt="Zayena Olive Logo"
-        class="h-10 w-auto object-contain"
-      />
+    <a href="index.html">
+      <img src="https://i.ibb.co/LXnb2nGD/logo.png" alt="Zayena Olive" class="h-12 w-auto">
     </a>
-
-    <!-- NAVIGATION -->
     <nav class="hidden md:flex gap-8 text-sm font-medium">
-      <a href="index.html" class="hover:text-primary">Accueil</a>
-      <a href="about.html" class="hover:text-primary">À Propos</a>
+      <a href="index.html" class="hover:text-primary transition">Accueil</a>
       <a href="product.html" class="text-primary font-bold border-b-2 border-primary">Produits</a>
-      <a href="contact.html" class="hover:text-primary">Contact</a>
+      <a href="testimonials.html" class="hover:text-primary transition">Témoignages</a>
     </nav>
-
-    <!-- CART -->
-    <a href="checkout.html" class="relative p-2 text-slate-600 hover:text-primary">
-      <i class="fas fa-shopping-basket text-xl"></i>
-      <span class="absolute top-0 right-0 bg-primary text-white text-[10px] px-1.5 rounded-full">0</span>
-    </a>
-
+    <div class="relative p-2">
+      <i class="fas fa-shopping-basket text-xl text-primary"></i>
+      <span id="cart-count" class="absolute top-0 right-0 bg-accent text-white text-[10px] px-1.5 rounded-full font-bold">0</span>
+    </div>
   </div>
 </header>
 
-<!-- ================= HERO ================= -->
-<section class="bg-secondary py-12">
+<section class="bg-primary/5 py-12 text-center border-b border-primary/10">
   <div class="max-w-7xl mx-auto px-6">
-    <h1 class="text-4xl font-bold text-primary mb-2">Nos Produits</h1>
-    <p class="text-lg text-primary/80">
-      Explorez notre collection complète de tartinades d'olive marocaines authentiques.
-    </p>
+    <h1 class="text-3xl font-bold text-primary mb-2 italic">Nos Collections</h1>
+    <p class="text-slate-600">Découvrez l'excellence de nos terroirs à travers nos 4 gammes signature.</p>
   </div>
 </section>
 
-<!-- ================= MAIN ================= -->
 <main class="max-w-7xl mx-auto px-6 py-12 grid lg:grid-cols-4 gap-12">
 
-<!-- FILTERS -->
-<aside class="space-y-8">
-  <h3 class="font-bold text-lg flex items-center gap-2">
-    <i class="fas fa-filter text-primary"></i> Filtres
-  </h3>
-  <div class="space-y-2">
-    <button class="w-full px-4 py-2 bg-primary text-white rounded-xl">Tous</button>
-    <button class="w-full px-4 py-2 hover:bg-secondary rounded-xl">Agrumes</button>
-    <button class="w-full px-4 py-2 hover:bg-secondary rounded-xl">Herbes</button>
-    <button class="w-full px-4 py-2 hover:bg-secondary rounded-xl">Épicé</button>
-    <button class="w-full px-4 py-2 hover:bg-secondary rounded-xl">Premium</button>
-  </div>
-</aside>
-
-<!-- PRODUCTS -->
-<section class="lg:col-span-3 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-<!-- PRODUCT CARD -->
-<div class="bg-white border rounded-xl overflow-hidden hover:shadow-xl transition flex flex-col">
-  <img
-    src="https://images.unsplash.com/photo-1541012436513-d658fc93c11f?q=80&w=800"
-    alt="Olive Citron"
-    class="aspect-square object-cover"
-  />
-  <div class="p-6 flex flex-col flex-1">
-    <span class="text-xs font-bold text-primary uppercase">Agrumes</span>
-    <h3 class="font-bold text-lg mt-1">Olive-Citron</h3>
-    <p class="text-sm text-slate-500 flex-1 mt-2">
-      Mélange frais de citron et olive avec une saveur vive.
-    </p>
-    <div class="flex justify-between items-center mt-4">
-      <span class="text-xl font-bold text-primary">28 dh</span>
-      <button class="bg-primary text-white p-2 rounded-lg">
-        <i class="fas fa-cart-plus"></i>
-      </button>
+  <aside class="space-y-6">
+    <h3 class="font-bold text-lg text-primary flex items-center gap-2">
+      <i class="fas fa-sliders-h"></i> Filtrer la Gamme
+    </h3>
+    <div class="flex flex-col gap-2">
+      <button onclick="filterItems('Tous')" class="filter-btn active w-full text-left px-4 py-2 rounded-xl transition">Toutes les Gammes</button>
+      <button onclick="filterItems('Gamme 1')" class="filter-btn w-full text-left px-4 py-2 hover:bg-white rounded-xl transition">Première Gamme</button>
+      <button onclick="filterItems('Gamme 2')" class="filter-btn w-full text-left px-4 py-2 hover:bg-white rounded-xl transition">Deuxième Gamme</button>
+      <button onclick="filterItems('Gamme 3')" class="filter-btn w-full text-left px-4 py-2 hover:bg-white rounded-xl transition">Troisième Gamme</button>
+      <button onclick="filterItems('Gamme 4')" class="filter-btn w-full text-left px-4 py-2 hover:bg-white rounded-xl transition">Quatrième Gamme</button>
     </div>
-  </div>
-</div>
+  </aside>
 
-<!-- DUPLICATE PRODUCT CARDS AS NEEDED -->
+  <section class="lg:col-span-3 grid md:grid-cols-2 gap-8">
+    
+    <div class="product-card bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group" data-cat="Gamme 1">
+      <img src="https://i.ibb.co/JWFRG3Lw/gamme1.jpg" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+      <div class="p-6">
+        <span class="text-xs font-bold text-primary uppercase tracking-widest">Collection Or</span>
+        <h3 class="font-bold text-xl mt-1">Première Gamme</h3>
+        <p class="text-sm text-slate-500 mt-2">L'équilibre parfait entre tradition et pureté.</p>
+        <div class="flex justify-between items-center mt-6">
+          <span class="text-2xl font-bold text-primary">350 dh</span>
+          <button onclick="addCart()" class="bg-primary text-white p-3 rounded-xl hover:bg-opacity-90"><i class="fas fa-plus"></i></button>
+        </div>
+      </div>
+    </div>
 
-</section>
+    <div class="product-card bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group" data-cat="Gamme 2">
+      <img src="https://i.ibb.co/rKgPb2mD/gamme2.jpg" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+      <div class="p-6">
+        <span class="text-xs font-bold text-primary uppercase tracking-widest">Héritage</span>
+        <h3 class="font-bold text-xl mt-1">Deuxième Gamme</h3>
+        <p class="text-sm text-slate-500 mt-2">Un goût intense et caractériel pour les connaisseurs.</p>
+        <div class="flex justify-between items-center mt-6">
+          <span class="text-2xl font-bold text-primary">420 dh</span>
+          <button onclick="addCart()" class="bg-primary text-white p-3 rounded-xl hover:bg-opacity-90"><i class="fas fa-plus"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group" data-cat="Gamme 3">
+      <img src="https://i.ibb.co/SWVNs61/gamme3.jpg" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+      <div class="p-6">
+        <span class="text-xs font-bold text-primary uppercase tracking-widest">Saphir</span>
+        <h3 class="font-bold text-xl mt-1">Troisième Gamme</h3>
+        <p class="text-sm text-slate-500 mt-2">Notes fruitées et douceur exceptionnelle en bouche.</p>
+        <div class="flex justify-between items-center mt-6">
+          <span class="text-2xl font-bold text-primary">290 dh</span>
+          <button onclick="addCart()" class="bg-primary text-white p-3 rounded-xl hover:bg-opacity-90"><i class="fas fa-plus"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group" data-cat="Gamme 4">
+      <img src="https://i.ibb.co/s9c3W70W/gamme4.jpg" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+      <div class="p-6">
+        <span class="text-xs font-bold text-accent uppercase tracking-widest">Prestige</span>
+        <h3 class="font-bold text-xl mt-1">Quatrième Gamme</h3>
+        <p class="text-sm text-slate-500 mt-2">L'édition limitée, récoltée à la main au lever du soleil.</p>
+        <div class="flex justify-between items-center mt-6">
+          <span class="text-2xl font-bold text-primary">550 dh</span>
+          <button onclick="addCart()" class="bg-primary text-white p-3 rounded-xl hover:bg-opacity-90"><i class="fas fa-plus"></i></button>
+        </div>
+      </div>
+    </div>
+
+  </section>
 </main>
 
-<!-- ================= FOOTER ================= -->
-<footer class="bg-slate-50 border-t py-12 text-center">
-  <p class="text-slate-500 text-sm">
-    &copy; 2026 Zayena Olive. Fait avec passion à Marrakech.
-  </p>
+<section class="max-w-7xl mx-auto px-6 pb-20">
+    <h2 class="text-2xl font-bold text-primary mb-8 text-center italic underline">Galerie & Coulisses</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <img src="https://i.ibb.co/7NyGJ8Mm/img2.jpg" class="rounded-xl h-40 w-full object-cover shadow">
+        <img src="https://i.ibb.co/ZRV0HD6j/img3.jpg" class="rounded-xl h-40 w-full object-cover shadow">
+        <img src="https://i.ibb.co/scYL7hK/img4.jpg" class="rounded-xl h-40 w-full object-cover shadow">
+        <img src="https://i.ibb.co/LXnb2nGD/logo.png" class="rounded-xl h-40 w-full object-contain bg-white p-4 shadow">
+    </div>
+</section>
+
+<footer class="bg-white border-t py-8 text-center">
+  <p class="text-slate-400 text-sm">&copy; 2026 Zayena Olive Marrakech</p>
 </footer>
+
+<script>
+  function filterItems(cat) {
+    const cards = document.querySelectorAll('.product-card');
+    const btns = document.querySelectorAll('.filter-btn');
+    btns.forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    cards.forEach(card => {
+      if (cat === 'Tous' || card.getAttribute('data-cat') === cat) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  let count = 0;
+  function addCart() {
+    count++;
+    document.getElementById('cart-count').innerText = count;
+  }
+</script>
 
 </body>
 </html>
