@@ -143,4 +143,68 @@
   <section class="py-24 bg-white/60 px-8">
     <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
         <div class="text-center p-8 bg-white rounded-3xl shadow-sm"><div class="text-gold mb-4 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="italic text-gray-500">"Qualité HD incroyable, le goût est magnifique."</p><p class="mt-4 font-bold text-xs uppercase tracking-widest">- Sarah L.</p></div>
-        <div class="text-center p-8
+        <div class="text-center p-8 bg-white rounded-3xl shadow-sm"><div class="text-gold mb-4 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="italic text-gray-500">"Le service est top et le produit est 100% naturel."</p><p class="mt-4 font-bold text-xs uppercase tracking-widest">- Ahmed K.</p></div>
+        <div class="text-center p-8 bg-white rounded-3xl shadow-sm"><div class="text-gold mb-4 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="italic text-gray-500">"Une merveille pour mes apéros entre amis !"</p><p class="mt-4 font-bold text-xs uppercase tracking-widest">- Yassine B.</p></div>
+    </div>
+  </section>
+
+  <section class="py-24 text-center">
+    <p class="text-[10px] font-bold tracking-[0.5em] uppercase text-gray-400 mb-12">Suivez notre aventure</p>
+    <a href="https://www.instagram.com/zayena.olive/" target="_blank" class="inline-block group">
+        <img src="https://i.ibb.co/LXnb2nGD/logo.png" class="w-32 h-32 mx-auto img-hd group-hover:scale-110 transition duration-700">
+    </a>
+  </section>
+
+  <footer class="py-16 bg-white border-t border-primary/5 text-center">
+    <h2 class="font-bold text-2xl mb-4 tracking-tighter">ZAYEN OLIVE</h2>
+    <p class="font-bold text-primary text-xl mb-10 hover:text-gold transition">06 90 23 88 81</p>
+    <p class="text-[10px] opacity-30 tracking-[0.5em] uppercase italic">L'Or Vert de Marrakech © 2026</p>
+  </footer>
+
+  <script>
+    let cart = [];
+    function toggleCart() { document.body.classList.toggle('cart-open'); }
+    
+    function addToCart(name, price, img) {
+      cart.push({name, price, img});
+      updateCart();
+      if(!document.body.classList.contains('cart-open')) toggleCart();
+    }
+
+    function updateCart() {
+      const itemsDiv = document.getElementById('cartItems');
+      const countSpan = document.getElementById('cartCount');
+      const totalSpan = document.getElementById('cartTotal');
+      countSpan.innerText = cart.length;
+      if(cart.length === 0) {
+        itemsDiv.innerHTML = '<p class="text-gray-400 text-center italic mt-10">Votre panier est vide</p>';
+        totalSpan.innerText = '0 MAD';
+        return;
+      }
+      let total = 0;
+      itemsDiv.innerHTML = cart.map((item, index) => {
+        total += item.price;
+        return `
+          <div class="flex items-center gap-4 bg-lightOlive/50 p-4 rounded-2xl">
+            <img src="${item.img}" class="w-16 h-16 object-cover rounded-xl shadow-sm">
+            <div class="flex-1 text-xs"><h4 class="font-bold uppercase text-black">${item.name}</h4><p class="text-primary font-bold">${item.price} MAD</p></div>
+            <button onclick="removeFromCart(${index})" class="text-gray-300 hover:text-red-500"><i class="fas fa-trash"></i></button>
+          </div>
+        `;
+      }).join('');
+      totalSpan.innerText = total + ' MAD';
+    }
+
+    function removeFromCart(index) { cart.splice(index, 1); updateCart(); }
+
+    function checkoutWhatsApp() {
+      if(cart.length === 0) return alert('Votre panier est vide');
+      let msg = "Bonjour Zayen Olive, je souhaite commander :\n\n";
+      cart.forEach(i => msg += `- ${i.name} : ${i.price} MAD\n`);
+      msg += `\nTotal : ${document.getElementById('cartTotal').innerText}\n\nMerci de me confirmer la livraison.`;
+      window.open(`https://wa.me/212690238881?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+  </script>
+
+</body>
+</html>
