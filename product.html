@@ -3,65 +3,196 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boutique | Zayen Olive HD</title>
+  <title>Boutique | Zayen Olive Premium</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+          colors: { primary: "#2d3912", gold: "#c5a059", lightOlive: "#f8faf4" }
+        }
+      }
+    }
+  </script>
   <style>
-    /* FORCE LA QUALITÉ HD SANS FLOU */
+    /* ⚡ RENDU IMAGE HD - SUPPRIME LE FLOU */
     img { 
       image-rendering: -webkit-optimize-contrast !important; 
-      image-rendering: high-quality !important;
+      image-rendering: crisp-edges !important;
       object-fit: cover !important;
-      width: 100%;
-      height: 100%;
     }
-    .product-card img { transition: transform 0.5s ease; }
-    .product-card:hover img { transform: scale(1.08); }
+    .cart-drawer { transform: translateX(100%); transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    .cart-open .cart-drawer { transform: translateX(0); }
+    .cart-open { overflow: hidden; }
   </style>
 </head>
-<body class="bg-white font-sans">
+<body class="bg-white font-sans text-primary">
 
-  <header class="py-12 text-center bg-[#fdfbf7]">
-    <h1 class="text-3xl font-bold text-[#4a5d23] uppercase tracking-widest">Notre Boutique</h1>
+  <div id="cartDrawer" class="cart-drawer fixed right-0 top-0 h-full w-full md:w-[450px] bg-white z-[100] shadow-2xl p-10 flex flex-col border-l">
+    <div class="flex justify-between items-center mb-10 border-b pb-6">
+      <h2 class="font-bold uppercase tracking-widest text-sm">Ma Sélection</h2>
+      <button onclick="toggleCart()" class="text-4xl text-gray-300 hover:text-black">&times;</button>
+    </div>
+    <div id="cartItems" class="flex-1 overflow-y-auto space-y-4"></div>
+    <div class="border-t pt-8 mt-6">
+      <div class="flex justify-between font-bold text-2xl mb-8"><span>Total</span><span id="cartTotal">0 MAD</span></div>
+      <button onclick="checkoutWhatsApp()" class="w-full bg-primary text-white py-5 rounded-full font-bold uppercase tracking-widest shadow-xl hover:bg-gold transition">Commander sur WhatsApp</button>
+    </div>
+  </div>
+
+  <nav class="flex items-center justify-between px-8 md:px-16 py-6 sticky top-0 bg-white/95 backdrop-blur-md z-50 border-b border-gray-100">
+    <a href="index.html" class="flex items-center gap-4">
+      <img src="https://i.ibb.co/LXnb2nGD/logo.png" class="h-10 w-auto" alt="Logo">
+      <span class="font-bold tracking-tighter text-xl uppercase">Zayen Olive</span>
+    </a>
+    <div class="flex items-center gap-8">
+      <a href="index.html" class="hidden md:block text-xs font-bold uppercase tracking-widest hover:text-gold">Accueil</a>
+      <button onclick="toggleCart()" class="relative bg-primary text-white p-3 rounded-full shadow-lg transition hover:scale-110">
+        <i class="fas fa-shopping-bag"></i>
+        <span id="cartCount" class="absolute -top-1 -right-1 bg-gold text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <header class="py-20 bg-lightOlive text-center px-6">
+    <h1 class="text-4xl md:text-6xl font-serif italic mb-4">Notre Boutique</h1>
+    <p class="text-gray-500 max-w-xl mx-auto uppercase text-[10px] tracking-[0.3em]">L'excellence de Marrakech en Haute Définition</p>
   </header>
 
-  <main class="max-w-7xl mx-auto px-6 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+  <main class="max-w-7xl mx-auto px-8 py-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
       
-      <div class="product-card">
-        <div class="relative aspect-square overflow-hidden rounded-3xl shadow-sm bg-gray-50 mb-4">
-          <img src="https://i.ibb.co/JWFRG3Lw/gamme1.jpg" alt="Citron">
+      <div class="group text-center">
+        <div class="overflow-hidden rounded-[2rem] mb-6 shadow-xl bg-gray-50">
+          <img src="https://i.ibb.co/JWFRG3Lw/gamme1.jpg" class="w-full aspect-square group-hover:scale-110 transition duration-700">
         </div>
-        <h3 class="font-bold text-gray-900">OLIVE-CITRON</h3>
-        <p class="text-[#4a5d23] font-bold text-lg">28 MAD</p>
+        <h3 class="font-bold text-lg uppercase tracking-widest">Olive-Citron</h3>
+        <p class="text-primary font-bold text-xl mt-2">28 MAD</p>
+        <button onclick="addToCart('Olive-Citron', 28, 'https://i.ibb.co/JWFRG3Lw/gamme1.jpg')" class="mt-4 text-[10px] font-bold uppercase tracking-widest border-b-2 border-gold pb-1 hover:text-gold transition">Ajouter au panier</button>
       </div>
 
-      <div class="product-card">
-        <div class="relative aspect-square overflow-hidden rounded-3xl shadow-sm bg-gray-50 mb-4">
-          <img src="https://i.ibb.co/rKgPb2mD/gamme2.jpg" alt="Thym">
+      <div class="group text-center">
+        <div class="overflow-hidden rounded-[2rem] mb-6 shadow-xl bg-gray-50">
+          <img src="https://i.ibb.co/rKgPb2mD/gamme2.jpg" class="w-full aspect-square group-hover:scale-110 transition duration-700">
         </div>
-        <h3 class="font-bold text-gray-900">THYM</h3>
-        <p class="text-[#4a5d23] font-bold text-lg">28 MAD</p>
+        <h3 class="font-bold text-lg uppercase tracking-widest">Thym</h3>
+        <p class="text-primary font-bold text-xl mt-2">28 MAD</p>
+        <button onclick="addToCart('Thym', 28, 'https://i.ibb.co/rKgPb2mD/gamme2.jpg')" class="mt-4 text-[10px] font-bold uppercase tracking-widest border-b-2 border-gold pb-1 hover:text-gold transition">Ajouter au panier</button>
       </div>
 
-      <div class="product-card">
-        <div class="relative aspect-square overflow-hidden rounded-3xl shadow-md border-2 border-[#c5a059]/20 mb-4">
-          <img src="https://i.ibb.co/SWVNs61/gamme3.jpg" alt="Harissa">
+      <div class="group text-center">
+        <div class="overflow-hidden rounded-[2rem] mb-6 shadow-xl bg-gray-50 border-2 border-gold/30">
+          <img src="https://i.ibb.co/SWVNs61/gamme3.jpg" class="w-full aspect-square group-hover:scale-110 transition duration-700">
         </div>
-        <h3 class="font-bold text-[#c5a059]">HARISSA</h3>
-        <p class="text-[#c5a059] font-bold text-lg">30 MAD</p>
+        <h3 class="font-bold text-lg uppercase tracking-widest text-gold">Harissa</h3>
+        <p class="text-gold font-bold text-xl mt-2">30 MAD</p>
+        <button onclick="addToCart('Harissa', 30, 'https://i.ibb.co/SWVNs61/gamme3.jpg')" class="mt-4 text-[10px] font-bold uppercase tracking-widest border-b-2 border-gold pb-1 hover:text-primary transition">Ajouter au panier</button>
       </div>
 
-      <div class="product-card">
-        <div class="relative aspect-square overflow-hidden rounded-3xl shadow-sm bg-gray-50 mb-4">
-          <img src="https://i.ibb.co/s9c3W70W/gamme4.jpg" alt="Persil">
+      <div class="group text-center">
+        <div class="overflow-hidden rounded-[2rem] mb-6 shadow-xl bg-gray-50">
+          <img src="https://i.ibb.co/s9c3W70W/gamme4.jpg" class="w-full aspect-square group-hover:scale-110 transition duration-700">
         </div>
-        <h3 class="font-bold text-gray-900">PERSIL</h3>
-        <p class="text-[#4a5d23] font-bold text-lg">28 MAD</p>
+        <h3 class="font-bold text-lg uppercase tracking-widest">Persil</h3>
+        <p class="text-primary font-bold text-xl mt-2">28 MAD</p>
+        <button onclick="addToCart('Persil', 28, 'https://i.ibb.co/s9c3W70W/gamme4.jpg')" class="mt-4 text-[10px] font-bold uppercase tracking-widest border-b-2 border-gold pb-1 hover:text-gold transition">Ajouter au panier</button>
       </div>
 
     </div>
   </main>
 
+  <section class="py-24 bg-primary text-white text-center px-8">
+    <h2 class="text-3xl font-serif italic mb-16">Ce que disent nos clients</h2>
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
+      <div class="p-10 border border-white/10 rounded-3xl bg-white/5">
+        <div class="text-gold mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="italic opacity-80">"La qualité est incroyable. Les photos sur le site ne mentent pas, c'est aussi beau que bon !"</p>
+        <p class="mt-6 font-bold text-xs uppercase tracking-widest text-gold">— Sarah J.</p>
+      </div>
+      <div class="p-10 border border-white/10 rounded-3xl bg-white/5">
+        <div class="text-gold mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="italic opacity-80">"L'Harissa est parfaitement dosée. Une commande reçue rapidement à Marrakech."</p>
+        <p class="mt-6 font-bold text-xs uppercase tracking-widest text-gold">— Omar K.</p>
+      </div>
+      <div class="p-10 border border-white/10 rounded-3xl bg-white/5">
+        <div class="text-gold mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="italic opacity-80">"Fidèle à Zayen depuis 2 ans. Toujours 100% naturel et délicieux."</p>
+        <p class="mt-6 font-bold text-xs uppercase tracking-widest text-gold">— Leila M.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-20 px-8 border-t border-gray-100 bg-white">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-16">
+      <div>
+        <h3 class="font-bold text-xl mb-6 uppercase tracking-tighter">Zayen Olive</h3>
+        <p class="text-gray-500 leading-relaxed italic">Le goût du terroir marocain, préparé avec passion à Marrakech.</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-xs uppercase tracking-[0.2em] mb-6">Contact</h3>
+        <p class="text-gray-500 mb-2">info@zayenolive.com</p>
+        <p class="text-primary font-bold text-lg">+212 6 90 23 88 81</p>
+      </div>
+      <div class="flex flex-col items-start md:items-end">
+        <h3 class="font-bold text-xs uppercase tracking-[0.2em] mb-6">Suivez-nous</h3>
+        <a href="https://www.instagram.com/zayena.olive/" target="_blank" class="text-2xl hover:text-gold transition"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="text-center mt-20 opacity-20 text-[10px] uppercase tracking-[0.5em]">
+      © 2026 Zayen Olive Marrakech
+    </div>
+  </footer>
+
+  <a href="https://wa.me/212690238881" target="_blank" class="fixed bottom-10 right-10 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl z-[90] hover:scale-110 transition duration-300">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+    let cart = [];
+    function toggleCart() { document.body.classList.toggle('cart-open'); }
+    
+    function addToCart(name, price, img) {
+      cart.push({name, price, img});
+      updateCart();
+      if(!document.body.classList.contains('cart-open')) toggleCart();
+    }
+
+    function updateCart() {
+      const itemsDiv = document.getElementById('cartItems');
+      const countSpan = document.getElementById('cartCount');
+      const totalSpan = document.getElementById('cartTotal');
+      countSpan.innerText = cart.length;
+      
+      if(cart.length === 0) {
+        itemsDiv.innerHTML = '<p class="text-gray-400 text-center italic mt-10">Votre panier est vide</p>';
+        totalSpan.innerText = '0 MAD'; return;
+      }
+      
+      let total = 0;
+      itemsDiv.innerHTML = cart.map((item, index) => {
+        total += item.price;
+        return `
+          <div class="flex items-center gap-4 bg-lightOlive p-4 rounded-2xl">
+            <img src="${item.img}" class="w-16 h-16 rounded-lg object-cover">
+            <div class="flex-1 text-[10px] font-bold uppercase leading-tight">${item.name}<br><span class="text-gold">${item.price} MAD</span></div>
+            <button onclick="removeFromCart(${index})" class="text-gray-300 hover:text-red-500"><i class="fas fa-trash-alt"></i></button>
+          </div>`;
+      }).join('');
+      totalSpan.innerText = total + ' MAD';
+    }
+
+    function removeFromCart(index) { cart.splice(index, 1); updateCart(); }
+
+    function checkoutWhatsApp() {
+      if(cart.length === 0) return alert('Votre panier est vide');
+      let msg = "Bonjour Zayen Olive, voici ma commande :\n\n";
+      cart.forEach(i => msg += `• ${i.name} (${i.price} MAD)\n`);
+      msg += `\nTotal : ${document.getElementById('cartTotal').innerText}`;
+      window.open(`https://wa.me/212690238881?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+  </script>
 </body>
 </html>
