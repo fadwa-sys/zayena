@@ -3,17 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boutique | Zayena Olive</title>
+  <title>Boutique HD | Zayena Olive</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
-          colors: { primary: "#1a2e1a", accent: "#5b6b1a", beige: "#fafaf5" }
+          colors: { primary: "#4a5d23", gold: "#c5a059", beige: "#fdfbf7" }
         }
       }
     }
@@ -21,96 +20,91 @@
 </head>
 <body class="bg-white">
 
-  <nav class="flex items-center justify-between px-8 py-6 border-b border-gray-100 sticky top-0 bg-white/80 backdrop-blur-md z-50">
-    <a href="index.html" class="flex items-center gap-2">
-      <img src="https://i.ibb.co/LXnb2nGD/logo.png" alt="Logo" class="h-10">
-    </a>
-    <div class="hidden md:flex gap-10 text-[13px] font-semibold tracking-widest uppercase text-gray-500">
+  <nav class="flex items-center justify-between px-8 py-6 sticky top-0 bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
+    <a href="index.html"><img src="https://i.ibb.co/LXnb2nGD/logo.png" class="h-12"></a>
+    <div class="hidden md:flex gap-10 text-[11px] font-bold uppercase tracking-widest text-gray-500">
       <a href="index.html" class="hover:text-black transition">Accueil</a>
-      <a href="product.html" class="text-black border-b border-black">Boutique</a>
-      <a href="testimonials.html" class="hover:text-black transition">Avis</a>
+      <a href="product.html" class="text-black border-b-2 border-primary">Boutique</a>
+      <a href="https://wa.me/212690238881" target="_blank" class="hover:text-green-600 transition">WhatsApp</a>
     </div>
     <div class="flex items-center gap-5">
-      <i class="fas fa-search text-gray-400 cursor-pointer"></i>
       <div class="relative">
-        <i class="fas fa-shopping-cart text-gray-800"></i>
-        <span id="cart-count" class="absolute -top-2 -right-2 bg-black text-white text-[9px] px-1.5 py-0.5 rounded-full">0</span>
+        <i class="fas fa-shopping-basket text-2xl text-primary"></i>
+        <span id="cart-count" class="absolute -top-2 -right-2 bg-gold text-white text-[10px] px-2 py-0.5 rounded-full font-bold">0</span>
       </div>
     </div>
   </nav>
 
-  <header class="py-20 text-center bg-beige">
-    <h1 class="text-4xl md:text-5xl font-light tracking-tight text-gray-900 mb-4">Nos Éditions Limitées</h1>
-    <p class="text-gray-500 max-w-xl mx-auto font-light">L'excellence de Marrakech, pressée à froid et mise en flacon pour une expérience gastronomique unique.</p>
+  <header class="py-16 text-center bg-beige">
+    <h1 class="text-4xl font-light italic text-primary mb-4">Notre Collection Exclusive</h1>
+    <p class="text-gray-500 text-sm tracking-wide">Des saveurs authentiques, livrées de Marrakech à votre table.</p>
   </header>
 
-  <main class="max-w-7xl mx-auto px-8 py-16">
-    <div class="flex flex-col md:flex-row gap-16">
+  <main class="max-w-7xl mx-auto px-8 py-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
       
-      <aside class="w-full md:w-64 space-y-10">
-        <div>
-          <h3 class="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-6">Catégories</h3>
-          <div class="flex flex-col gap-4 text-sm">
-            <button onclick="filterItems('Tous')" class="text-left font-semibold border-l-2 border-black pl-4">Tout voir</button>
-            <button onclick="filterItems('Gamme 1')" class="text-left text-gray-400 hover:text-black hover:pl-2 transition-all">Première Gamme</button>
-            <button onclick="filterItems('Gamme 2')" class="text-left text-gray-400 hover:text-black hover:pl-2 transition-all">Deuxième Gamme</button>
-            <button onclick="filterItems('Gamme 3')" class="text-left text-gray-400 hover:text-black hover:pl-2 transition-all">Troisième Gamme</button>
-          </div>
+      <div class="group">
+        <div class="relative aspect-[4/5] overflow-hidden rounded-2xl bg-gray-100 mb-6 shadow-sm">
+          <img src="https://i.ibb.co/JWFRG3Lw/gamme1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <button onclick="addCart()" class="absolute bottom-4 left-4 right-4 bg-primary text-white py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0 shadow-xl">
+            Ajouter au panier
+          </button>
         </div>
-      </aside>
+        <h3 class="font-bold text-gray-900">OLIVE-CITRON</h3>
+        <p class="text-gray-400 text-xs mt-1 uppercase">Frais & Zesté</p>
+        <p class="mt-4 text-primary font-bold text-lg">28 MAD</p>
+      </div>
 
-      <section class="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-        
-        <div class="product-card group cursor-pointer" data-cat="Gamme 1">
-          <div class="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-6 rounded-sm">
-            <img src="https://i.ibb.co/JWFRG3Lw/gamme1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-            <button onclick="addCart()" class="absolute bottom-4 left-4 right-4 bg-white py-3 text-[11px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0 shadow-lg">Ajouter au panier</button>
-          </div>
-          <h3 class="text-sm font-semibold tracking-wide">PREMIÈRE GAMME - ÉQUILIBRE</h3>
-          <p class="text-gray-400 text-xs mt-1 uppercase tracking-widest">Récolte 2026</p>
-          <p class="mt-3 text-sm font-bold">280 MAD</p>
+      <div class="group">
+        <div class="relative aspect-[4/5] overflow-hidden rounded-2xl bg-gray-100 mb-6 shadow-sm">
+          <img src="https://i.ibb.co/rKgPb2mD/gamme2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <button onclick="addCart()" class="absolute bottom-4 left-4 right-4 bg-primary text-white py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0 shadow-xl">
+            Ajouter au panier
+          </button>
         </div>
+        <h3 class="font-bold text-gray-900">THYM</h3>
+        <p class="text-gray-400 text-xs mt-1 uppercase">Herbes & Terroir</p>
+        <p class="mt-4 text-primary font-bold text-lg">28 MAD</p>
+      </div>
 
-        <div class="product-card group cursor-pointer" data-cat="Gamme 2">
-          <div class="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-6 rounded-sm">
-            <img src="https://i.ibb.co/rKgPb2mD/gamme2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-            <button onclick="addCart()" class="absolute bottom-4 left-4 right-4 bg-white py-3 text-[11px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0 shadow-lg">Ajouter au panier</button>
-          </div>
-          <h3 class="text-sm font-semibold tracking-wide">DEUXIÈME GAMME - INTENSE</h3>
-          <p class="text-gray-400 text-xs mt-1 uppercase tracking-widest">Récolte 2026</p>
-          <p class="mt-3 text-sm font-bold">350 MAD</p>
+      <div class="group">
+        <div class="relative aspect-[4/5] overflow-hidden rounded-2xl bg-gray-100 mb-6 shadow-sm">
+          <img src="https://i.ibb.co/SWVNs61/gamme3.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <button onclick="addCart()" class="absolute bottom-4 left-4 right-4 bg-primary text-white py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0 shadow-xl">
+            Ajouter au panier
+          </button>
         </div>
+        <h3 class="font-bold text-gray-900">HARISSA</h3>
+        <p class="text-gray-400 text-xs mt-1 uppercase">Piquant & Épicé</p>
+        <p class="mt-4 text-primary font-bold text-lg">30 MAD</p>
+      </div>
 
-        <div class="product-card group cursor-pointer" data-cat="Gamme 3">
-          <div class="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-6 rounded-sm">
-            <img src="https://i.ibb.co/SWVNs61/gamme3.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-            <button onclick="addCart()" class="absolute bottom-4 left-4 right-4 bg-white py-3 text-[11px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0 shadow-lg">Ajouter au panier</button>
-          </div>
-          <h3 class="text-sm font-semibold tracking-wide">TROISIÈME GAMME - DOUCEUR</h3>
-          <p class="text-gray-400 text-xs mt-1 uppercase tracking-widest">Récolte 2026</p>
-          <p class="mt-3 text-sm font-bold">420 MAD</p>
+      <div class="group">
+        <div class="relative aspect-[4/5] overflow-hidden rounded-2xl bg-gray-100 mb-6 shadow-sm">
+          <img src="https://i.ibb.co/s9c3W70W/gamme4.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <button onclick="addCart()" class="absolute bottom-4 left-4 right-4 bg-primary text-white py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0 shadow-xl">
+            Ajouter au panier
+          </button>
         </div>
+        <h3 class="font-bold text-gray-900">PERSIL</h3>
+        <p class="text-gray-400 text-xs mt-1 uppercase">Fraîcheur & Herbes</p>
+        <p class="mt-4 text-primary font-bold text-lg">28 MAD</p>
+      </div>
 
-      </section>
     </div>
   </main>
 
-  <footer class="py-20 border-t border-gray-100 text-center">
-    <img src="https://i.ibb.co/LXnb2nGD/logo.png" class="h-8 mx-auto mb-8 opacity-50 grayscale">
-    <p class="text-[10px] tracking-[0.3em] uppercase text-gray-400 font-bold">Zayena Olive &copy; 2026 - Marrakech</p>
-  </footer>
-
-  <script>
-    function filterItems(cat) {
-      document.querySelectorAll('.product-card').forEach(card => {
-        card.style.display = (cat === 'Tous' || card.getAttribute('data-cat') === cat) ? 'block' : 'none';
-      });
-    }
-    let count = 0;
-    function addCart() {
-      count++;
-      document.getElementById('cart-count').innerText = count;
-    }
-  </script>
-</body>
-</html>
+  <footer class="bg-beige py-20 border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-20 items-center">
+      <div>
+        <h2 class="text-2xl font-light italic mb-6">Besoin d'aide ?</h2>
+        <p class="text-gray-500 mb-8">Commandez directement par WhatsApp ou suivez notre actualité sur Instagram.</p>
+        <div class="flex flex-col gap-4">
+          <a href="https://wa.me/212690238881" class="flex items-center gap-4 text-primary font-bold">
+            <i class="fab fa-whatsapp text-2xl"></i> 06 90 23 88 81
+          </a>
+          <p class="text-sm text-gray-400"><i class="fas fa-map-marker-alt mr-2"></i> Marrakech, Maroc</p>
+        </div>
+      </div>
+      <div class="flex flex-col items-center">
+        <p class="text-[10px] font-bold uppercase tracking-widest mb-4">Scanner
