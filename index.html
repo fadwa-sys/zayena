@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zayen Olive | Maison de Saveurs</title>
+  <title>Zayen Olive | Officiel</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -11,189 +11,142 @@
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { 
-            serif: ['Playfair Display', 'serif'], 
-            sans: ['Plus Jakarta Sans', 'sans-serif'] 
-          },
-          colors: { primary: "#111111", gold: "#c5a059", olive: "#3d4a1e" }
+          fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Plus Jakarta Sans', 'sans-serif'] },
+          colors: { primary: "#1a1a1a", gold: "#c5a059", beige: "#f9f7f2" }
         }
       }
     }
   </script>
   <style>
-    /* QUALITÉ HD SANS FLOU */
-    img { 
-      image-rendering: -webkit-optimize-contrast !important; 
-      image-rendering: high-quality !important;
-      object-fit: cover;
-    }
-    html { scroll-behavior: smooth; }
-    .cart-drawer { transform: translateX(100%); transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
+    img { image-rendering: -webkit-optimize-contrast !important; image-rendering: high-quality !important; object-fit: cover; }
+    .cart-drawer { transform: translateX(100%); transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
     .cart-open .cart-drawer { transform: translateX(0); }
     .cart-open { overflow: hidden; }
   </style>
 </head>
-<body class="bg-[#fafafa] font-sans text-primary">
+<body class="bg-white text-primary">
 
-  <div id="cartDrawer" class="cart-drawer fixed right-0 top-0 h-full w-full md:w-[500px] bg-white z-[100] shadow-2xl p-8 md:p-12 flex flex-col border-l">
-    <div class="flex justify-between items-center mb-12 border-b pb-6">
-      <h2 class="font-serif text-3xl italic">Votre Sélection</h2>
-      <button onclick="toggleCart()" class="text-4xl font-light hover:text-gold transition">&times;</button>
+  <div id="cartDrawer" class="cart-drawer fixed right-0 top-0 h-full w-full md:w-[500px] bg-white z-[100] shadow-2xl p-8 flex flex-col border-l">
+    <div class="flex justify-between items-center mb-10">
+      <h2 class="font-serif text-3xl italic">Votre Panier</h2>
+      <button onclick="toggleCart()" class="text-4xl">&times;</button>
     </div>
-    <div id="cartItems" class="flex-1 overflow-y-auto space-y-8"></div>
+    <div id="cartItems" class="flex-1 overflow-y-auto space-y-6"></div>
     <div class="border-t pt-10 mt-6">
-      <div class="flex justify-between font-serif text-3xl mb-10 text-olive">
-        <span>Total</span>
-        <span id="cartTotal">0 MAD</span>
-      </div>
-      <button onclick="checkoutWhatsApp()" class="w-full bg-primary text-white py-6 rounded-full font-bold uppercase tracking-[0.2em] hover:bg-gold transition-all shadow-xl">
-        Commander via WhatsApp
-      </button>
+      <div class="flex justify-between font-serif text-3xl mb-8"><span>Total</span><span id="cartTotal">0 MAD</span></div>
+      <button onclick="checkoutWhatsApp()" class="w-full bg-primary text-white py-6 rounded-full font-bold uppercase tracking-widest">Commander sur WhatsApp</button>
     </div>
   </div>
 
-  <nav class="flex items-center justify-between px-6 md:px-20 py-10 sticky top-0 bg-white/70 backdrop-blur-xl z-50">
-    <div class="flex items-center gap-6">
-      <img src="https://i.ibb.co/LXnb2nGD/logo.png" class="h-12 md:h-16" alt="Zayen Logo">
-      <span class="font-serif text-2xl md:text-4xl tracking-tighter italic">Zayen Olive</span>
+  <nav class="flex items-center justify-between px-6 md:px-16 py-8 sticky top-0 bg-white/90 backdrop-blur-md z-50">
+    <div class="flex items-center gap-4">
+      <img src="https://i.ibb.co/LXnb2nGD/logo.png" class="h-12">
+      <span class="font-serif text-2xl italic tracking-tighter">Zayen Olive</span>
     </div>
-    <div class="flex items-center gap-10">
-      <a href="https://www.instagram.com/zayena.olive/" target="_blank" class="text-2xl hover:text-gold transition"><i class="fab fa-instagram"></i></a>
-      <button onclick="toggleCart()" class="relative group">
-        <i class="fas fa-shopping-bag text-2xl group-hover:scale-110 transition inline-block"></i>
-        <span id="cartCount" class="absolute -top-3 -right-3 bg-gold text-white text-[10px] px-2 py-1 rounded-full font-bold shadow-md">0</span>
-      </button>
+    <div class="flex items-center gap-8">
+      <a href="https://www.instagram.com/zayena.olive/" target="_blank" class="text-2xl hover:text-gold"><i class="fab fa-instagram"></i></a>
+      <button onclick="toggleCart()" class="relative"><i class="fas fa-shopping-bag text-2xl"></i><span id="cartCount" class="absolute -top-2 -right-2 bg-gold text-white text-xs px-2 py-0.5 rounded-full">0</span></button>
     </div>
   </nav>
 
-  <header class="relative h-[95vh] flex items-center justify-center text-center px-6 overflow-hidden">
-    <img src="https://i.ibb.co/7NyGJ8Mm/image2.jpg" class="absolute inset-0 w-full h-full object-cover brightness-[0.75]" alt="Zayen Heritage">
-    <div class="relative z-10 text-white">
-      <span class="block uppercase tracking-[0.5em] text-sm mb-6 font-bold opacity-80">Maison de Qualité</span>
-      <h1 class="font-serif text-6xl md:text-[10rem] mb-10 italic leading-none drop-shadow-2xl">L'Authentique</h1>
-      <p class="text-xl md:text-3xl font-light mb-16 tracking-wide max-w-3xl mx-auto italic opacity-90">Tartinades d'olives artisanales nées au cœur de Marrakech.</p>
-      <a href="#collection" class="inline-block bg-white text-black px-16 py-6 rounded-full text-xs font-bold uppercase tracking-[0.3em] hover:bg-gold hover:text-white transition-all shadow-2xl">
-        Explorer la Collection
-      </a>
+  <header class="relative h-screen flex items-center justify-center text-center text-white px-6">
+    <img src="https://i.ibb.co/7NyGJ8Mm/image2.jpg" class="absolute inset-0 w-full h-full brightness-75">
+    <div class="relative z-10">
+      <h1 class="font-serif text-7xl md:text-[10rem] italic leading-none mb-8">L'Authentique</h1>
+      <p class="text-xl md:text-3xl font-light tracking-widest uppercase opacity-90">Marrakech — Maison de Saveurs</p>
     </div>
   </header>
 
-  <section id="collection" class="py-40 px-6 max-w-[1700px] mx-auto">
-    <div class="flex flex-col md:flex-row justify-between items-end mb-32 border-b border-gray-100 pb-12">
-      <h2 class="font-serif text-6xl md:text-9xl italic leading-none">Nos Gammes</h2>
-      <p class="text-gray-400 font-bold uppercase tracking-widest text-sm mt-8 md:mt-0">Collection 2026</p>
-    </div>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20">
-      
-      <div class="group">
-        <div class="overflow-hidden rounded-[2.5rem] mb-10 shadow-2xl bg-white transition-all group-hover:shadow-gold/20">
-          <img src="https://i.ibb.co/JWFRG3Lw/gamme1.jpg" class="w-full aspect-[4/5] group-hover:scale-105 transition duration-[1.5s]" alt="Olive Citron">
-        </div>
-        <h3 class="font-serif text-4xl mb-4 italic">Olive & Citron</h3>
-        <p class="text-gray-400 text-sm uppercase tracking-[0.2em] mb-6 font-semibold">Zeste & Fraîcheur</p>
-        <p class="text-3xl font-light mb-10">28 MAD</p>
-        <button onclick="addToCart('Olive-Citron', 28, 'https://i.ibb.co/JWFRG3Lw/gamme1.jpg')" class="w-full py-5 rounded-full border border-black font-bold uppercase text-[10px] tracking-widest hover:bg-black hover:text-white transition-all">
-          Ajouter au panier
-        </button>
+  <section class="py-32 px-6 max-w-[1600px] mx-auto">
+    <h2 class="font-serif text-6xl md:text-8xl text-center italic mb-24">La Collection</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div class="group bg-beige p-4 rounded-[2.5rem]">
+        <img src="https://i.ibb.co/JWFRG3Lw/gamme1.jpg" class="w-full aspect-square rounded-[2rem] mb-6">
+        <h3 class="font-serif text-3xl italic">Olive & Citron</h3>
+        <p class="text-2xl font-light my-4">28 MAD</p>
+        <button onclick="addToCart('Olive-Citron', 28, 'https://i.ibb.co/JWFRG3Lw/gamme1.jpg')" class="w-full py-4 border border-black rounded-full uppercase text-[10px] font-bold tracking-widest hover:bg-black hover:text-white transition">Ajouter</button>
       </div>
-
-      <div class="group">
-        <div class="overflow-hidden rounded-[2.5rem] mb-10 shadow-2xl bg-white">
-          <img src="https://i.ibb.co/rKgPb2mD/gamme2.jpg" class="w-full aspect-[4/5] group-hover:scale-105 transition duration-[1.5s]" alt="Thym">
-        </div>
-        <h3 class="font-serif text-4xl mb-4 italic text-olive">Le Thym</h3>
-        <p class="text-gray-400 text-sm uppercase tracking-[0.2em] mb-6 font-semibold">Herbes de Terroir</p>
-        <p class="text-3xl font-light mb-10">28 MAD</p>
-        <button onclick="addToCart('Thym', 28, 'https://i.ibb.co/rKgPb2mD/gamme2.jpg')" class="w-full py-5 rounded-full border border-black font-bold uppercase text-[10px] tracking-widest hover:bg-black hover:text-white transition-all">
-          Ajouter au panier
-        </button>
+      <div class="group bg-beige p-4 rounded-[2.5rem]">
+        <img src="https://i.ibb.co/rKgPb2mD/gamme2.jpg" class="w-full aspect-square rounded-[2rem] mb-6">
+        <h3 class="font-serif text-3xl italic">Le Thym</h3>
+        <p class="text-2xl font-light my-4">28 MAD</p>
+        <button onclick="addToCart('Thym', 28, 'https://i.ibb.co/rKgPb2mD/gamme2.jpg')" class="w-full py-4 border border-black rounded-full uppercase text-[10px] font-bold tracking-widest hover:bg-black hover:text-white transition">Ajouter</button>
       </div>
-
-      <div class="group">
-        <div class="overflow-hidden rounded-[2.5rem] mb-10 shadow-2xl bg-white ring-1 ring-gold/10">
-          <img src="https://i.ibb.co/SWVNs61/gamme3.jpg" class="w-full aspect-[4/5] group-hover:scale-105 transition duration-[1.5s]" alt="Harissa">
-        </div>
-        <h3 class="font-serif text-4xl mb-4 italic text-gold">Harissa</h3>
-        <p class="text-gray-400 text-sm uppercase tracking-[0.2em] mb-6 font-semibold font-bold">Piquant Noble</p>
-        <p class="text-3xl font-light text-gold mb-10">30 MAD</p>
-        <button onclick="addToCart('Harissa', 30, 'https://i.ibb.co/SWVNs61/gamme3.jpg')" class="w-full py-5 rounded-full border border-gold text-gold font-bold uppercase text-[10px] tracking-widest hover:bg-gold hover:text-white transition-all">
-          Ajouter au panier
-        </button>
+      <div class="group bg-beige p-4 rounded-[2.5rem]">
+        <img src="https://i.ibb.co/SWVNs61/gamme3.jpg" class="w-full aspect-square rounded-[2rem] mb-6">
+        <h3 class="font-serif text-3xl italic text-gold">L'Harissa</h3>
+        <p class="text-2xl font-light my-4 text-gold">30 MAD</p>
+        <button onclick="addToCart('Harissa', 30, 'https://i.ibb.co/SWVNs61/gamme3.jpg')" class="w-full py-4 border border-gold rounded-full uppercase text-[10px] font-bold tracking-widest hover:bg-gold hover:text-white transition text-gold">Ajouter</button>
       </div>
-
-      <div class="group">
-        <div class="overflow-hidden rounded-[2.5rem] mb-10 shadow-2xl bg-white">
-          <img src="https://i.ibb.co/s9c3W70W/gamme4.jpg" class="w-full aspect-[4/5] group-hover:scale-105 transition duration-[1.5s]" alt="Persil">
-        </div>
-        <h3 class="font-serif text-4xl mb-4 italic">Persil Frais</h3>
-        <p class="text-gray-400 text-sm uppercase tracking-[0.2em] mb-6 font-semibold">Jardin Aromatique</p>
-        <p class="text-3xl font-light mb-10">28 MAD</p>
-        <button onclick="addToCart('Persil', 28, 'https://i.ibb.co/s9c3W70W/gamme4.jpg')" class="w-full py-5 rounded-full border border-black font-bold uppercase text-[10px] tracking-widest hover:bg-black hover:text-white transition-all">
-          Ajouter au panier
-        </button>
+      <div class="group bg-beige p-4 rounded-[2.5rem]">
+        <img src="https://i.ibb.co/s9c3W70W/gamme4.jpg" class="w-full aspect-square rounded-[2rem] mb-6">
+        <h3 class="font-serif text-3xl italic">Le Persil</h3>
+        <p class="text-2xl font-light my-4">28 MAD</p>
+        <button onclick="addToCart('Persil', 28, 'https://i.ibb.co/s9c3W70W/gamme4.jpg')" class="w-full py-4 border border-black rounded-full uppercase text-[10px] font-bold tracking-widest hover:bg-black hover:text-white transition">Ajouter</button>
       </div>
-
     </div>
   </section>
 
-  <footer class="bg-primary text-white py-40 px-6">
-    <div class="max-w-7xl mx-auto text-center">
-      <h2 class="font-serif text-6xl md:text-8xl italic mb-16 tracking-tighter">Zayen Olive</h2>
-      <div class="flex justify-center gap-20 mb-20">
-        <a href="https://www.instagram.com/zayena.olive/" target="_blank" class="text-4xl hover:text-gold transition-all hover:scale-125"><i class="fab fa-instagram"></i></a>
-        <a href="https://wa.me/212690238881" target="_blank" class="text-4xl hover:text-green-500 transition-all hover:scale-125"><i class="fab fa-whatsapp"></i></a>
+  <section class="py-32 bg-beige">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 items-center gap-20">
+      <img src="https://i.ibb.co/7NyGJ8Mm/image2.jpg" class="rounded-[3rem] shadow-2xl">
+      <div>
+        <h2 class="font-serif text-6xl italic mb-8">Une tartinade,<br>mille recettes.</h2>
+        <p class="text-xl text-gray-600 leading-relaxed mb-10 italic">Laissez libre cours à votre créativité culinaire avec nos créations artisanales. Du petit-déjeuner au dîner, Zayen accompagne vos moments les plus gourmands.</p>
+        <a href="https://www.instagram.com/zayena.olive/" class="inline-block border-b-2 border-black pb-2 font-bold uppercase tracking-widest text-sm">Voir nos inspirations</a>
       </div>
-      <p class="text-[10px] uppercase tracking-[0.8em] opacity-30">© 2026 Marrakech — Artisans d'Excellence</p>
     </div>
+  </section>
+
+  <section class="py-32 px-6">
+    <h2 class="font-serif text-5xl md:text-7xl text-center italic mb-20">Vos Témoignages</h2>
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-12">
+      <div class="text-center p-10 bg-white shadow-xl rounded-3xl">
+        <div class="text-gold mb-6"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="italic text-lg">"Un voyage gustatif unique. On sent vraiment le travail artisanal et la qualité des ingrédients."</p>
+        <h4 class="mt-8 font-bold uppercase text-xs tracking-widest">— Amina B.</h4>
+      </div>
+      <div class="text-center p-10 bg-white shadow-xl rounded-3xl">
+        <div class="text-gold mb-6"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="italic text-lg">"L'harissa est divine. Le packaging est magnifique, parfait pour offrir !"</p>
+        <h4 class="mt-8 font-bold uppercase text-xs tracking-widest">— Karim T.</h4>
+      </div>
+      <div class="text-center p-10 bg-white shadow-xl rounded-3xl">
+        <div class="text-gold mb-6"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="italic text-lg">"Incontournable sur ma table maintenant. Service rapide et produit ultra frais."</p>
+        <h4 class="mt-8 font-bold uppercase text-xs tracking-widest">— Sofia L.</h4>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-primary text-white py-24 px-6 text-center">
+    <h2 class="font-serif text-5xl italic mb-10">Zayen Olive</h2>
+    <a href="https://www.instagram.com/zayena.olive/" target="_blank" class="text-4xl hover:text-gold transition"><i class="fab fa-instagram"></i></a>
+    <p class="mt-16 text-[10px] uppercase tracking-[0.6em] opacity-40">Marrakech — Maroc</p>
   </footer>
 
   <script>
     let cart = [];
     function toggleCart() { document.body.classList.toggle('cart-open'); }
-    
-    function addToCart(name, price, img) {
-      cart.push({name, price, img});
-      updateCart();
-      if(!document.body.classList.contains('cart-open')) toggleCart();
-    }
-
+    function addToCart(name, price, img) { cart.push({name, price, img}); updateCart(); toggleCart(); }
     function updateCart() {
       const itemsDiv = document.getElementById('cartItems');
       const countSpan = document.getElementById('cartCount');
       const totalSpan = document.getElementById('cartTotal');
       countSpan.innerText = cart.length;
-      
-      if(cart.length === 0) {
-        itemsDiv.innerHTML = '<div class="h-64 flex items-center justify-center font-serif italic text-2xl text-gray-300">Panier vide</div>';
-        totalSpan.innerText = '0 MAD'; return;
-      }
-      
+      if(cart.length === 0) { itemsDiv.innerHTML = '<p class="text-center italic mt-20">Vide</p>'; totalSpan.innerText = '0 MAD'; return; }
       let total = 0;
       itemsDiv.innerHTML = cart.map((item, index) => {
         total += item.price;
-        return `
-          <div class="flex items-center gap-8 group animate-fade-in">
-            <div class="w-28 h-36 overflow-hidden rounded-2xl bg-gray-50 shadow-md">
-                <img src="${item.img}" class="w-full h-full object-cover">
-            </div>
-            <div class="flex-1">
-              <h4 class="font-serif text-2xl italic mb-1">${item.name}</h4>
-              <p class="text-gold font-bold text-lg">${item.price} MAD</p>
-            </div>
-            <button onclick="removeFromCart(${index})" class="text-gray-300 hover:text-black text-3xl font-light transition">&times;</button>
-          </div>`;
+        return `<div class="flex items-center gap-6"><img src="${item.img}" class="w-20 h-24 rounded-xl"><div class="flex-1 font-serif text-xl italic">${item.name}<br><span class="text-gold text-sm font-sans font-bold">${item.price} MAD</span></div><button onclick="removeFromCart(${index})" class="text-3xl">&times;</button></div>`;
       }).join('');
       totalSpan.innerText = total + ' MAD';
     }
-
     function removeFromCart(index) { cart.splice(index, 1); updateCart(); }
-
     function checkoutWhatsApp() {
-      if(cart.length === 0) return;
-      let msg = "Bonjour Zayen Olive, je souhaite passer cette commande :\n\n";
-      cart.forEach(i => msg += `✨ ${i.name} - ${i.price} MAD\n`);
-      msg += `\nTotal de la commande : ${document.getElementById('cartTotal').innerText}\n\nMerci de me confirmer la disponibilité !`;
+      let msg = "Bonjour Zayen Olive, voici ma commande :\n\n";
+      cart.forEach(i => msg += `- ${i.name} (${i.price} MAD)\n`);
+      msg += `\nTotal : ${document.getElementById('cartTotal').innerText}`;
       window.open(`https://wa.me/212690238881?text=${encodeURIComponent(msg)}`, '_blank');
     }
   </script>
