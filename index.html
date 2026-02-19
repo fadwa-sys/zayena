@@ -3,291 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zayena Olive | Maison de Confiserie Fine</title>
+    <title>Zayena Olive | Tartinades Artisanales Premium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --gold: #b38e44;
-            --black: #1a1a1a;
-            --sand: #f8f5f0;
+            --primary-gold: #c5a059;
+            --olive-dark: #1a1a1a;
+            --cream: #f4f1ea;
             --white: #ffffff;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--cream); color: var(--olive-dark); }
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--sand);
-            color: var(--black);
-            line-height: 1.6;
-        }
-
-        /* --- NAVIGATION --- */
+        /* --- NAV --- */
         nav {
-            padding: 2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: absolute;
-            width: 100%;
-            z-index: 1000;
+            background: rgba(244, 241, 234, 0.95);
+            padding: 1.5rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            position: fixed; width: 100%; z-index: 1000; backdrop-blur: 10px;
         }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; text-decoration: none; color: var(--olive-dark); font-weight: bold; font-style: italic; }
+        .nav-links { display: flex; list-style: none; }
+        .nav-links li a { color: var(--olive-dark); text-decoration: none; margin-left: 2rem; font-weight: 500; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; }
 
-        .logo {
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            letter-spacing: 4px;
-            text-decoration: none;
-            color: var(--white);
-            font-weight: 700;
-        }
-
-        .cart-icon {
-            color: var(--white);
-            font-size: 1.2rem;
-            cursor: pointer;
-            position: relative;
-        }
-
-        /* --- HERO --- */
+        /* --- HERO (PAGE 1) --- */
         header {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.ibb.co/7NyGJ8Mm/image2.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: var(--white);
-            text-align: center;
+            height: 90vh; margin: 10px; border-radius: 30px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://i.ibb.co/7NyGJ8Mm/image2.jpg');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--white);
         }
+        header h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 7rem); font-style: italic; margin-bottom: 1rem; }
+        header p { font-size: 1.2rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 2rem; }
+        .btn-gold { background: var(--white); color: var(--olive-dark); padding: 1.2rem 3rem; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; transition: 0.4s; }
 
-        header h1 {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            margin-bottom: 1rem;
-            letter-spacing: 8px;
-        }
+        /* --- COLLECTION (PAGE 2 & 3) --- */
+        .section { padding: 5rem 5%; }
+        .section-title { text-align: center; font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 4rem); margin-bottom: 4rem; font-style: italic; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1300px; margin: 0 auto; }
+        .product-card { background: var(--white); border-radius: 30px; overflow: hidden; text-align: center; padding-bottom: 2rem; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .product-img { height: 350px; background-size: cover; background-position: center; margin-bottom: 1.5rem; }
+        .price { font-size: 1.4rem; font-weight: 600; color: var(--primary-gold); display: block; margin: 10px 0; }
+        .btn-order { background: var(--olive-dark); color: white; border: none; padding: 0.8rem 2rem; border-radius: 50px; cursor: pointer; text-transform: uppercase; font-size: 0.7rem; font-weight: bold; }
 
-        header p {
-            font-weight: 200;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            font-size: 0.9rem;
-        }
+        /* --- MILLE FAÇONS (PAGE 4 & 5) --- */
+        .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; padding: 5rem 10%; background: var(--white); margin: 20px; border-radius: 40px; }
+        .split-img { width: 100%; border-radius: 25px; object-fit: cover; height: 500px; }
+        .split-content h2 { font-family: 'Playfair Display', serif; font-size: 3rem; font-style: italic; margin-bottom: 1.5rem; }
+        .split-content p { font-size: 1.1rem; color: #555; margin-bottom: 2rem; line-height: 1.8; }
 
-        /* --- SECTION PRODUITS --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 8rem 5%;
-        }
+        /* --- QUALITÉ (PAGE 6) --- */
+        .full-img-section { height: 600px; margin: 20px; border-radius: 40px; background: url('https://i.ibb.co/ZRV0HD6j/image.jpg'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; }
+        .quality-card { background: rgba(255,255,255,0.9); padding: 3rem; border-radius: 30px; text-align: center; max-width: 600px; backdrop-blur: 10px; }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 6rem;
-        }
+        /* --- AVIS --- */
+        .reviews { padding: 5rem 10%; background: var(--olive-dark); color: white; border-radius: 40px 40px 0 0; }
+        .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .review-card { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .stars { color: var(--primary-gold); margin-bottom: 1rem; }
 
-        .section-header h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
+        footer { background: var(--olive-dark); color: white; padding: 4rem 10%; text-align: center; }
+        .social-links a { color: white; font-size: 2rem; margin: 0 1rem; }
 
-        .section-header .line {
-            width: 60px;
-            height: 1px;
-            background: var(--gold);
-            margin: 0 auto;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 4rem;
-        }
-
-        .product-card {
-            background: none;
-            text-align: center;
-            transition: 0.4s;
-        }
-
-        .img-container {
-            width: 100%;
-            height: 450px;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-            border: 1px solid #e0dbd1;
-        }
-
-        .product-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.8s;
-            filter: grayscale(20%);
-        }
-
-        .product-card:hover .product-img {
-            transform: scale(1.05);
-            filter: grayscale(0%);
-        }
-
-        .product-card h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: 2px;
-        }
-
-        .price {
-            color: var(--gold);
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-
-        .btn-add {
-            background: none;
-            border: 1px solid var(--black);
-            padding: 0.8rem 2rem;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-add:hover {
-            background: var(--black);
-            color: var(--white);
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            padding: 5rem 5%;
-            background: #111;
-            color: var(--white);
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            display: block;
-        }
-
-        .social {
-            margin-bottom: 3rem;
-        }
-
-        .social a {
-            color: var(--white);
-            margin: 0 15px;
-            font-size: 1.5rem;
-            text-decoration: none;
-            opacity: 0.7;
-            transition: 0.3s;
-        }
-
-        .social a:hover { opacity: 1; color: var(--gold); }
-
-        .copyright {
-            font-size: 0.6rem;
-            letter-spacing: 3px;
-            opacity: 0.4;
-            text-transform: uppercase;
-        }
-
-        /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .img-container { height: 350px; }
+            .split-section { grid-template-columns: 1fr; text-align: center; }
+            .split-img { height: 300px; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="logo">ZAYENA</a>
-        <div class="cart-icon" onclick="openWhatsApp()">
-            <i class="fas fa-shopping-bag"></i>
-        </div>
+        <a href="#" class="logo">Zayena Olive</a>
+        <ul class="nav-links">
+            <li><a href="#collection">Collection</a></li>
+            <li><a href="#about">Savoir-faire</a></li>
+            <li><a href="#reviews">Avis</a></li>
+        </ul>
     </nav>
 
     <header>
-        <p>Maison de Tradition</p>
-        <h1>ZAYENA OLIVE</h1>
-        <p>L'Essence du Terroir Marocain</p>
+        <h1>L'Art de l'Olive</h1>
+        <p>Maison Artisanale — Marrakech</p>
+        <a href="#collection" class="btn-gold">Découvrir la Gamme</a>
     </header>
 
-    <section class="container" id="collection">
-        <div class="section-header">
-            <h2>La Collection</h2>
-            <div class="line"></div>
-        </div>
-
+    <section class="section" id="collection">
+        <h2 class="section-title">La Collection Signature</h2>
         <div class="product-grid">
             <div class="product-card">
-                <div class="img-container">
-                    <img src="https://i.ibb.co/JWFRG3Lw/gamme1.jpg" class="product-img">
-                </div>
+                <div class="product-img" style="background-image: url('https://i.ibb.co/JWFRG3Lw/gamme1.jpg')"></div>
                 <h3>Olive & Citron</h3>
                 <span class="price">28 MAD</span>
-                <button class="btn-add" onclick="directOrder('Olive & Citron')">Commander</button>
+                <button class="btn-order" onclick="order('Olive & Citron')">Commander</button>
             </div>
-
             <div class="product-card">
-                <div class="img-container">
-                    <img src="https://i.ibb.co/rKgPb2mD/gamme2.jpg" class="product-img">
-                </div>
+                <div class="product-img" style="background-image: url('https://i.ibb.co/rKgPb2mD/gamme2.jpg')"></div>
                 <h3>Olive & Thym</h3>
                 <span class="price">28 MAD</span>
-                <button class="btn-add" onclick="directOrder('Olive & Thym')">Commander</button>
+                <button class="btn-order" onclick="order('Olive & Thym')">Commander</button>
             </div>
-
             <div class="product-card">
-                <div class="img-container">
-                    <img src="https://i.ibb.co/SWVNs61/gamme3.jpg" class="product-img">
-                </div>
+                <div class="product-img" style="background-image: url('https://i.ibb.co/SWVNs61/gamme3.jpg')"></div>
                 <h3>Harissa Royale</h3>
                 <span class="price">30 MAD</span>
-                <button class="btn-add" onclick="directOrder('Harissa Royale')">Commander</button>
+                <button class="btn-order" onclick="order('Harissa Royale')" style="background:var(--primary-gold)">Commander</button>
             </div>
-
             <div class="product-card">
-                <div class="img-container">
-                    <img src="https://i.ibb.co/s9c3W70W/gamme4.jpg" class="product-img">
-                </div>
+                <div class="product-img" style="background-image: url('https://i.ibb.co/s9c3W70W/gamme4.jpg')"></div>
                 <h3>Olive & Persil</h3>
                 <span class="price">28 MAD</span>
-                <button class="btn-add" onclick="directOrder('Olive & Persil')">Commander</button>
+                <button class="btn-order" onclick="order('Olive & Persil')">Commander</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="split-section" id="about">
+        <img src="https://i.ibb.co/scYL7hK/photo4.jpg" class="split-img" alt="Usage Culinaire">
+        <div class="split-content">
+            <h2>Une tartinade,<br>mille recettes.</h2>
+            <p>"Nos tartinades ne sont pas de simples accompagnements. Elles sont l'âme de vos apéritifs, le secret de vos sauces et le compagnon idéal de vos pains artisanaux."</p>
+            <div style="background: var(--primary-gold); color: white; padding: 10px 20px; border-radius: 50px; display: inline-block; font-size: 0.8rem; font-weight: bold;">LIVRAISON GRATUITE DÈS 3 POTS</div>
+        </div>
+    </section>
+
+    <section class="split-section" style="background: transparent;">
+        <div class="split-content">
+            <h2>L'excellence du<br>terroir Marocain.</h2>
+            <p>Chaque pot raconte l'histoire d'un savoir-faire familial transmis depuis des générations. Nous sélectionnons les meilleures olives de la région de Marrakech pour vous offrir une expérience unique.</p>
+        </div>
+        <img src="https://i.ibb.co/LhcFnXFY/photo5.jpg" class="split-img" alt="Terroir">
+    </section>
+
+    <section class="full-img-section">
+        <div class="quality-card">
+            <h2 style="font-family: 'Playfair Display'; font-style: italic; font-size: 2.5rem; margin-bottom: 1rem;">100% Naturel</h2>
+            <p>Sans conservateurs, sans additifs. Juste le goût authentique du fruit et des herbes fraîches de l'Atlas.</p>
+            <br>
+            <p style="font-weight: bold; letter-spacing: 2px;">QUALITÉ SUPÉRIEURE GARANTIE</p>
+        </div>
+    </section>
+
+    <section class="reviews" id="reviews">
+        <h2 class="section-title" style="color: white;">Témoignages</h2>
+        <div class="review-grid">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Le goût du citron est incroyable, on sent la qualité des ingrédients."</p>
+                <small>- Sarah M.</small>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"L'Harissa est parfaitement dosée. Livraison rapide à Casablanca."</p>
+                <small>- Ahmed K.</small>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Authentique et artisanal, je recommande vivement."</p>
+                <small>- Elena R.</small>
             </div>
         </div>
     </section>
 
     <footer>
-        <span class="footer-logo">ZAYENA OLIVE</span>
-        <div class="social">
+        <h2 class="logo" style="color: white; font-size: 2.5rem; margin-bottom: 1.5rem;">Zayena Olive</h2>
+        <div class="social-links">
             <a href="https://www.instagram.com/zayena.olive/"><i class="fab fa-instagram"></i></a>
             <a href="https://wa.me/212690238881"><i class="fab fa-whatsapp"></i></a>
         </div>
-        <p class="copyright">&copy; 2026 Zayena Olive — Marrakech. Tous droits réservés.</p>
+        <p style="margin-top: 2rem; opacity: 0.5; font-size: 0.8rem;">&copy; 2026 ZAYENA OLIVE. MARRAKECH — MAROC.</p>
     </footer>
 
     <script>
-        function directOrder(product) {
-            const msg = encodeURIComponent(`Bonjour Zayena Olive, je souhaite commander le produit : ${product}`);
-            window.open(`https://wa.me/212690238881?text=${msg}`);
-        }
-        function openWhatsApp() {
-            window.open(`https://wa.me/212690238881`);
+        function order(item) {
+            const message = encodeURIComponent(`Bonjour Zayena Olive, je souhaite commander : ${item}`);
+            window.open(`https://wa.me/212690238881?text=${message}`);
         }
     </script>
-
 </body>
 </html>
