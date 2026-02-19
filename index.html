@@ -12,6 +12,7 @@
             --primary-gold: #c5a059;
             --olive-dark: #1a1a1a;
             --cream: #f4f1ea; 
+            --dark-text: #1a1a1a;
             --white: #ffffff;
         }
 
@@ -19,247 +20,66 @@
 
         body {
             font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
             background-color: var(--cream);
-            color: var(--olive-dark);
             overflow-x: hidden;
         }
 
-        /* --- PANIER LATÉRAL (DYNAMIQUE) --- */
+        /* --- SYSTÈME DE PANIER (DRAWER) --- */
         #cart-drawer {
-            position: fixed; right: -100%; top: 0; width: 400px; height: 100%;
-            background: white; z-index: 2000; transition: 0.5s;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.1); padding: 2rem;
+            position: fixed; right: -100%; top: 0; width: 350px; height: 100%;
+            background: white; z-index: 2000; transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.1); padding: 2rem;
             display: flex; flex-direction: column;
         }
         #cart-drawer.active { right: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid #eee; pb: 1rem; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid #eee; padding-bottom: 1rem; }
         #cart-items { flex-grow: 1; overflow-y: auto; }
-        .cart-item { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; border-bottom: 1px solid #fafafa; padding-bottom: 10px; }
-        .cart-item img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; }
-        .total-section { border-top: 1px solid #eee; padding-top: 1rem; }
-        .btn-whatsapp { background: #25d366; color: white; border: none; width: 100%; padding: 1rem; border-radius: 50px; cursor: pointer; font-weight: bold; margin-top: 1rem; }
+        .cart-item { display: flex; gap: 15px; margin-bottom: 15px; align-items: center; padding-bottom: 10px; border-bottom: 1px solid #fafafa; }
+        .cart-item img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
+        .cart-total-footer { border-top: 1px solid #eee; padding-top: 1rem; }
+        .btn-checkout { background: #25d366; color: white; border: none; width: 100%; padding: 1rem; border-radius: 50px; cursor: pointer; font-weight: bold; margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; }
 
-        /* --- NAV --- */
+        /* --- NAVIGATION --- */
         nav {
             background: rgba(244, 241, 234, 0.95);
-            padding: 1.5rem 5%; display: flex; justify-content: space-between;
-            align-items: center; position: fixed; width: 100%; z-index: 1000;
+            padding: 1.5rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            position: fixed; width: 100%; z-index: 1000; backdrop-blur: 10px;
         }
 
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: bold; font-style: italic; color: var(--olive-dark); text-decoration: none; }
+        .logo { color: var(--dark-text); font-family: 'Playfair Display', serif; font-size: 2rem; text-decoration: none; font-weight: bold; font-style: italic; }
 
-        .nav-links { display: flex; list-style: none; gap: 2rem; }
-        .nav-links a { text-decoration: none; color: var(--olive-dark); font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+        .nav-links { display: flex; list-style: none; }
+        .nav-links li a { color: var(--dark-text); text-decoration: none; margin-left: 2rem; transition: 0.3s; font-weight: 500; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; }
+        .nav-links li a:hover { color: var(--primary-gold); }
 
-        /* --- HERO --- */
+        /* --- HERO SECTION --- */
         header {
-            height: 85vh; margin: 15px; border-radius: 40px;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://i.ibb.co/7NyGJ8Mm/image2.jpg');
+            height: 90vh; margin: 10px; border-radius: 30px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.ibb.co/7NyGJ8Mm/image2.jpg');
             background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--white); overflow: hidden;
         }
-        header h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 7rem); font-style: italic; }
+
+        header h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 7rem); font-style: italic; margin-bottom: 1rem; }
+        header p { font-size: 1.2rem; max-width: 800px; margin-bottom: 2rem; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; }
+
+        .btn-primary { background: var(--white); color: var(--olive-dark); padding: 1.2rem 3rem; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; transition: 0.4s; }
+        .btn-primary:hover { background: var(--primary-gold); color: white; transform: translateY(-5px); }
 
         /* --- STATS --- */
-        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); padding: 5rem 10%; text-align: center; }
-        .stats h3 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--primary-gold); font-style: italic; }
-        .stats p { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); padding: 6rem 10%; text-align: center; gap: 2rem; }
+        .stat-item h3 { font-family: 'Playfair Display', serif; font-size: 4rem; color: var(--primary-gold); font-style: italic; }
+        .stat-item p { text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; font-weight: 600; opacity: 0.6; }
 
         /* --- PRODUITS --- */
         .products { padding: 5rem 5%; }
-        .section-title { font-family: 'Playfair Display', serif; font-size: 4rem; text-align: center; margin-bottom: 4rem; font-style: italic; }
-        
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; max-width: 1400px; margin: 0 auto; }
-        .product-card { background: white; border-radius: 35px; overflow: hidden; transition: 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.03); display: flex; flex-direction: column; }
-        .product-card:hover { transform: translateY(-10px); }
-        
-        .product-img { height: 350px; width: 100%; object-fit: cover; }
-        .product-info { padding: 1.5rem; text-align: center; }
-        .product-info h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-style: italic; margin-bottom: 0.5rem; }
-        .price { font-weight: 600; color: var(--primary-gold); font-size: 1.2rem; }
+        .section-title { text-align: center; font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 5rem); margin-bottom: 4rem; font-style: italic; }
 
-        .btn-add { background: var(--olive-dark); color: white; border: none; padding: 1rem; width: 80%; margin: 0 auto 1.5rem; border-radius: 50px; cursor: pointer; text-transform: uppercase; font-size: 0.7rem; font-weight: bold; transition: 0.3s; }
-        .btn-add:hover { background: var(--primary-gold); }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; max-width: 1400px; margin: 0 auto; }
+        .product-card { background: var(--white); border-radius: 40px; overflow: hidden; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .product-card:hover { transform: translateY(-15px); }
 
-        /* --- AVIS --- */
-        .reviews { background: var(--olive-dark); color: white; padding: 6rem 10%; border-radius: 50px 50px 0 0; }
-        .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; }
-        .review-card { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 25px; text-align: center; }
-        .stars { color: var(--primary-gold); margin-bottom: 1rem; }
-
-        footer { background: var(--olive-dark); color: white; padding: 4rem 10%; text-align: center; }
-        .social-links a { color: white; font-size: 2rem; margin: 0 1rem; transition: 0.3s; }
-        .social-links a:hover { color: var(--primary-gold); }
-
-        @media (max-width: 768px) { #cart-drawer { width: 100%; } .nav-links { display: none; } }
-    </style>
-</head>
-<body>
-
-    <div id="cart-drawer">
-        <div class="cart-header">
-            <h2 style="font-family: 'Playfair Display'; font-style: italic;">Votre Panier</h2>
-            <button onclick="toggleCart()" style="background: none; border: none; font-size: 2rem; cursor: pointer;">&times;</button>
-        </div>
-        <div id="cart-items">
-            </div>
-        <div class="total-section">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1.2rem;">
-                <span>Total</span>
-                <span id="cart-total">0 MAD</span>
-            </div>
-            <button class="btn-whatsapp" onclick="sendWhatsApp()">Commander via WhatsApp</button>
-        </div>
-    </div>
-
-    <nav>
-        <a href="#" class="logo">Zayena Olive</a>
-        <ul class="nav-links">
-            <li><a href="#about">Notre Histoire</a></li>
-            <li><a href="#products">Collection</a></li>
-            <li><a href="#reviews">Avis</a></li>
-        </ul>
-        <div style="cursor: pointer; font-size: 1.3rem;" onclick="toggleCart()">
-            <i class="fas fa-shopping-bag"></i> <span id="cart-count">0</span>
-        </div>
-    </nav>
-
-    <header>
-        <h1>Zayena Olive</h1>
-        <p>L'Authentique Tradition de Marrakech</p>
-    </header>
-
-    <section class="stats">
-        <div class="stat-item"><h3>+15</h3><p>Ans de Tradition</p></div>
-        <div class="stat-item"><h3>100%</h3><p>Naturel & Bio</p></div>
-        <div class="stat-item"><h3>24h</h3><p>Livraison Rapide</p></div>
-        <div class="stat-item"><h3>8000+</h3><p>Clients Heureux</p></div>
-    </section>
-
-    <section class="products" id="products">
-        <h2 class="section-title">La Collection</h2>
-        <div class="product-grid">
-            <div class="product-card">
-                <img src="https://i.ibb.co/JWFRG3Lw/gamme1.jpg" class="product-img" alt="Olive Citron">
-                <div class="product-info">
-                    <h3>Olive & Citron</h3>
-                    <p class="price">28 MAD</p>
-                </div>
-                <button class="btn-add" onclick="addToCart('Olive & Citron', 28, 'https://i.ibb.co/JWFRG3Lw/gamme1.jpg')">Ajouter</button>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co/rKgPb2mD/gamme2.jpg" class="product-img" alt="Olive Thym">
-                <div class="product-info">
-                    <h3>Olive & Thym</h3>
-                    <p class="price">28 MAD</p>
-                </div>
-                <button class="btn-add" onclick="addToCart('Olive & Thym', 28, 'https://i.ibb.co/rKgPb2mD/gamme2.jpg')">Ajouter</button>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co/SWVNs61/gamme3.jpg" class="product-img" alt="Olive Harissa">
-                <div class="product-info">
-                    <h3>Olive & Harissa</h3>
-                    <p class="price">30 MAD</p>
-                </div>
-                <button class="btn-add" onclick="addToCart('Olive & Harissa', 30, 'https://i.ibb.co/SWVNs61/gamme3.jpg')">Ajouter</button>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co/s9c3W70W/gamme4.jpg" class="product-img" alt="Olive Persil">
-                <div class="product-info">
-                    <h3>Olive & Persil</h3>
-                    <p class="price">28 MAD</p>
-                </div>
-                <button class="btn-add" onclick="addToCart('Olive & Persil', 28, 'https://i.ibb.co/s9c3W70W/gamme4.jpg')">Ajouter</button>
-            </div>
-        </div>
-    </section>
-
-    <section class="reviews" id="reviews">
-        <h2 class="section-title" style="color: white;">Avis Clients</h2>
-        <div class="review-grid">
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <p>"Le goût du citron est incroyable."</p>
-                <small>- Sarah M.</small>
-            </div>
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <p>"L'Harissa est parfaitement dosée."</p>
-                <small>- Ahmed K.</small>
-            </div>
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <p>"Authentique et artisanal."</p>
-                <small>- Elena R.</small>
-            </div>
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <p>"Mes enfants adorent celle au persil."</p>
-                <small>- Sofia T.</small>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="social-links">
-            <a href="https://www.instagram.com/zayena.olive/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://wa.me/212690238881" target="_blank"><i class="fab fa-whatsapp"></i></a>
-        </div>
-        <p style="margin-top: 2rem; opacity: 0.5;">&copy; 2026 Zayena Olive. Marrakech.</p>
-    </footer>
-
-    <script>
-        let cart = [];
-        const drawer = document.getElementById('cart-drawer');
-
-        function toggleCart() {
-            drawer.classList.toggle('active');
-        }
-
-        function addToCart(name, price, img) {
-            cart.push({name, price, img});
-            updateCart();
-            if(!drawer.classList.contains('active')) toggleCart();
-        }
-
-        function updateCart() {
-            const itemsCont = document.getElementById('cart-items');
-            const totalEl = document.getElementById('cart-total');
-            const countEl = document.getElementById('cart-count');
-            
-            itemsCont.innerHTML = '';
-            let total = 0;
-            
-            cart.forEach((item, index) => {
-                total += item.price;
-                itemsCont.innerHTML += `
-                    <div class="cart-item">
-                        <img src="${item.img}">
-                        <div style="flex-grow:1">
-                            <h4 style="font-size:0.9rem">${item.name}</h4>
-                            <span style="color:#c5a059">${item.price} MAD</span>
-                        </div>
-                        <button onclick="removeItem(${index})" style="border:none; background:none; cursor:pointer; color:red;">&times;</button>
-                    </div>
-                `;
-            });
-            
-            countEl.innerText = cart.length;
-            totalEl.innerText = total + " MAD";
-        }
-
-        function removeItem(index) {
-            cart.splice(index, 1);
-            updateCart();
-        }
-
-        function sendWhatsApp() {
-            if(cart.length === 0) return alert("Panier vide");
-            let text = "Bonjour Zayena Olive, je souhaite commander :\n\n";
-            cart.forEach(i => text += `- ${i.name} (${i.price} MAD)\n`);
-            text += `\nTotal: ${document.getElementById('cart-total').innerText}`;
-            window.open(`https://wa.me/212690238881?text=${encodeURIComponent(text)}`);
-        }
-    </script>
-</body>
-</html>
+        .product-img { height:
