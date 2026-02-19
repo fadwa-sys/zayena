@@ -82,4 +82,208 @@
         .product-card { background: var(--white); border-radius: 40px; overflow: hidden; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .product-card:hover { transform: translateY(-15px); }
 
-        .product-img { height:
+        .product-img { height: 400px; width: 100%; object-fit: cover; transition: 0.6s; }
+        .product-card:hover .product-img { transform: scale(1.05); }
+
+        .product-info { padding: 2rem; text-align: center; }
+        .product-info h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 1rem; font-style: italic; }
+        .price { font-size: 1.5rem; font-weight: 600; color: var(--primary-gold); margin-bottom: 1.5rem; }
+
+        .btn-cart { background: var(--olive-dark); color: white; border: none; padding: 1rem 2rem; border-radius: 50px; cursor: pointer; width: 80%; font-weight: bold; text-transform: uppercase; font-size: 0.7rem; transition: 0.3s; margin-bottom: 2rem; }
+        .btn-cart:hover { background: var(--primary-gold); }
+
+        /* --- ABOUT --- */
+        .about-section { padding: 8rem 10%; background: var(--white); margin: 20px; border-radius: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+        .about-img img { width: 100%; border-radius: 30px; box-shadow: 20px 20px 0px var(--cream); object-fit: cover; }
+
+        /* --- REVIEWS --- */
+        .reviews { padding: 8rem 10%; background: var(--olive-dark); color: white; border-radius: 50px 50px 0 0; }
+        .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .review-card { background: rgba(255,255,255,0.05); padding: 3rem 2rem; border-radius: 30px; text-align: center; }
+        .stars { color: var(--primary-gold); margin-bottom: 1.5rem; }
+
+        footer { background: var(--olive-dark); color: white; padding: 5rem 10% 2rem; text-align: center; }
+        .social-links a { color: var(--white); font-size: 2.5rem; margin: 0 1.5rem; transition: 0.4s; }
+        .social-links a:hover { color: var(--primary-gold); }
+    </style>
+</head>
+<body>
+
+    <div id="cart-drawer">
+        <div class="cart-header">
+            <h2 style="font-family: 'Playfair Display'; font-style: italic;">Mon Panier</h2>
+            <button onclick="toggleCart()" style="background:none; border:none; font-size:2rem; cursor:pointer;">&times;</button>
+        </div>
+        <div id="cart-items">
+            </div>
+        <div class="cart-total-footer">
+            <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:1.2rem;">
+                <span>Total:</span>
+                <span id="cart-total-price">0 MAD</span>
+            </div>
+            <button class="btn-checkout" onclick="checkoutWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Commander sur WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <nav>
+        <a href="#" class="logo">Zayena Olive</a>
+        <ul class="nav-links">
+            <li><a href="#about">Notre Histoire</a></li>
+            <li><a href="#products">Collection</a></li>
+            <li><a href="#reviews">Avis</a></li>
+        </ul>
+        <div onclick="toggleCart()" style="font-size: 1.5rem; cursor: pointer; position: relative;">
+            <i class="fas fa-shopping-bag"></i> 
+            <span id="cart-count" style="position:absolute; top:-10px; right:-10px; background:var(--primary-gold); color:white; font-size:0.7rem; padding:2px 6px; border-radius:50%;">0</span>
+        </div>
+    </nav>
+
+    <header>
+        <h1>L'Art de l'Olive</h1>
+        <p>Maison Artisanale — Marrakech</p>
+        <a href="#products" class="btn-primary">Découvrir la Gamme</a>
+    </header>
+
+    <section class="stats">
+        <div class="stat-item"><h3>+15</h3><p>Ans de Tradition</p></div>
+        <div class="stat-item"><h3>100%</h3><p>Naturel & Bio</p></div>
+        <div class="stat-item"><h3>24h</h3><p>Livraison Rapide</p></div>
+        <div class="stat-item"><h3>8000+</h3><p>Clients Heureux</p></div>
+    </section>
+
+    <section class="products" id="products">
+        <h2 class="section-title">La Collection Signature</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://i.ibb.co/JWFRG3Lw/gamme1.jpg" class="product-img">
+                <div class="product-info">
+                    <h3>Olive & Citron</h3>
+                    <div class="price">28 MAD</div>
+                    <button class="btn-cart" onclick="addToCart('Olive & Citron', 28, 'https://i.ibb.co/JWFRG3Lw/gamme1.jpg')">Ajouter au panier</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://i.ibb.co/rKgPb2mD/gamme2.jpg" class="product-img">
+                <div class="product-info">
+                    <h3>Olive & Thym</h3>
+                    <div class="price">28 MAD</div>
+                    <button class="btn-cart" onclick="addToCart('Olive & Thym', 28, 'https://i.ibb.co/rKgPb2mD/gamme2.jpg')">Ajouter au panier</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://i.ibb.co/SWVNs61/gamme3.jpg" class="product-img">
+                <div class="product-info">
+                    <h3>Harissa Royale</h3>
+                    <div class="price">30 MAD</div>
+                    <button class="btn-cart" onclick="addToCart('Harissa Royale', 30, 'https://i.ibb.co/SWVNs61/gamme3.jpg')" style="background: var(--primary-gold);">Ajouter au panier</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://i.ibb.co/s9c3W70W/gamme4.jpg" class="product-img">
+                <div class="product-info">
+                    <h3>Olive & Persil</h3>
+                    <div class="price">28 MAD</div>
+                    <button class="btn-cart" onclick="addToCart('Olive & Persil', 28, 'https://i.ibb.co/s9c3W70W/gamme4.jpg')">Ajouter au panier</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <div class="about-img">
+            <img src="https://i.ibb.co/7NyGJ8Mm/image2.jpg">
+        </div>
+        <div>
+            <h2 class="section-title" style="text-align: left; margin-bottom: 2rem;">Une tartinade,<br>mille recettes.</h2>
+            <p style="font-size: 1.1rem; color: #555; margin-bottom: 2rem; font-style: italic;">
+                "Nos tartinades sont préparées avec amour dans le respect des traditions de Zayena Olive."
+            </p>
+            <div class="delivery-info"><i class="fas fa-truck"></i> Livraison Gratuite dès 3 pots !</div>
+        </div>
+    </section>
+
+    <section class="reviews" id="reviews">
+        <h2 class="section-title" style="color: white;">Témoignages</h2>
+        <div class="review-grid">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Le goût du citron est incroyable."</p>
+                <small style="display:block; margin-top:1rem; opacity:0.5;">- Sarah M.</small>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"L'Harissa est parfaitement dosée."</p>
+                <small style="display:block; margin-top:1rem; opacity:0.5;">- Ahmed K.</small>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h3 class="logo" style="color: white; font-size: 3.5rem; margin-bottom: 2rem;">Zayena Olive</h3>
+        <div class="social-links">
+            <a href="https://www.instagram.com/zayena.olive/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/212690238881" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <div style="margin-top: 5rem; opacity: 0.4; font-size: 0.7rem;">
+            <p>&copy; 2026 ZAYENA OLIVE. MARRAKECH.</p>
+        </div>
+    </footer>
+
+    <script>
+        let cart = [];
+
+        function toggleCart() {
+            document.getElementById('cart-drawer').classList.toggle('active');
+        }
+
+        function addToCart(name, price, img) {
+            cart.push({name, price, img});
+            updateCart();
+            document.getElementById('cart-drawer').classList.add('active');
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total-price');
+            
+            cartItems.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartItems.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.img}">
+                        <div style="flex-grow:1">
+                            <h4 style="font-size:0.9rem">${item.name}</h4>
+                            <span style="color:var(--primary-gold)">${item.price} MAD</span>
+                        </div>
+                        <button onclick="removeItem(${index})" style="background:none; border:none; color:red; cursor:pointer;">&times;</button>
+                    </div>
+                `;
+            });
+
+            cartCount.innerText = cart.length;
+            cartTotal.innerText = total + " MAD";
+        }
+
+        function checkoutWhatsApp() {
+            if(cart.length === 0) return alert("Votre panier est vide");
+            let message = "Bonjour Zayena Olive, je souhaite commander :\n\n";
+            cart.forEach(item => {
+                message += `• ${item.name} - ${item.price} MAD\n`;
+            });
+            message += `\nTotal: ${document.getElementById('cart-total-price').innerText}`;
+            window.open(`https://wa.me/212690238881?text=${encodeURIComponent(message)}`);
+        }
+    </script>
+</body>
+</html>
