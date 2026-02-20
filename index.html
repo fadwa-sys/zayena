@@ -1,184 +1,369 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zayena Olive | Tartinades Artisanales</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Zayena Olive | Maison de Tartinades Artisanales</title>
     
+    <!-- Tailwind CSS (Shadcn Style Foundation) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts: Playfair for Luxury, Montserrat for Modernity -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        olive: {
+                            50: '#f8f6f2',
+                            100: '#f1eee6',
+                            800: '#1a1a1a',
+                            900: '#0f0f0f',
+                        },
+                        gold: '#c5a059',
+                    },
+                    fontFamily: {
+                        playfair: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        :root {
-            --primary-gold: #c5a059;
-            --olive-dark: #1a1a1a;
-            --cream: #f4f1ea;
-            --white: #ffffff;
+        .glass-nav {
+            background: rgba(248, 246, 242, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--cream); color: var(--olive-dark); overflow-x: hidden; }
-
-        /* --- PANIER COULISSANT --- */
-        #cart-drawer {
-            position: fixed; right: -100%; top: 0; width: 350px; height: 100%;
-            background: white; z-index: 2000; transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: -10px 0 30px rgba(0,0,0,0.1); padding: 2rem; display: flex; flex-direction: column;
+        .product-card img {
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        #cart-drawer.active { right: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid #eee; padding-bottom: 1rem; }
-        #cart-items { flex-grow: 1; overflow-y: auto; }
-        .cart-item { display: flex; gap: 15px; margin-bottom: 15px; align-items: center; border-bottom: 1px solid #fafafa; padding-bottom: 10px; }
-        .cart-item img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
-        .btn-checkout { background: #25d366; color: white; border: none; width: 100%; padding: 1rem; border-radius: 50px; cursor: pointer; font-weight: bold; margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; }
-
-        /* --- NAVIGATION --- */
-        nav {
-            background: rgba(244, 241, 234, 0.95);
-            padding: 1rem 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            position: fixed; width: 100%; z-index: 1000; backdrop-blur: 10px;
+        .product-card:hover img {
+            transform: scale(1.08);
         }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; text-decoration: none; color: var(--olive-dark); font-weight: bold; font-style: italic; }
-
-        /* --- SECTIONS --- */
-        header {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://i.ibb.co/7NyGJ8Mm/image2.jpg');
-            background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--white);
+        .cart-drawer {
+            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
         }
-        header h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6rem); font-style: italic; }
-        header p { font-size: 1rem; letter-spacing: 4px; text-transform: uppercase; margin-top: 10px; }
-
-        .section { padding: 5rem 5%; }
-        .section-title { text-align: center; font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 3rem; font-style: italic; }
-        
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
-        .product-card { background: var(--white); border-radius: 25px; overflow: hidden; text-align: center; padding-bottom: 2rem; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .product-img { height: 350px; background-size: cover; background-position: center; }
-
-        .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; padding: 5rem 10%; background: var(--white); margin: 20px; border-radius: 40px; }
-        .split-img { width: 100%; border-radius: 20px; height: 500px; object-fit: cover; }
-        .split-content h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-style: italic; margin-bottom: 1.5rem; }
-
-        .full-img-section { height: 600px; margin: 20px; border-radius: 40px; background: url('https://i.ibb.co/ZRV0HD6j/image.jpg'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; }
-        .quality-box { background: rgba(255,255,255,0.9); padding: 3rem; border-radius: 30px; text-align: center; max-width: 500px; }
-
-        /* --- FOOTER & ICONS --- */
-        footer { background: var(--olive-dark); color: white; padding: 4rem 10%; text-align: center; }
-        .social-links a { color: white; font-size: 2rem; margin: 0 1.5rem; transition: 0.3s; }
-        .social-links a:hover { color: var(--primary-gold); }
-
-        .price { font-size: 1.3rem; font-weight: 600; color: var(--primary-gold); margin: 15px 0; display: block; }
-        .btn-order { background: var(--olive-dark); color: white; border: none; padding: 0.8rem 2rem; border-radius: 50px; cursor: pointer; font-weight: bold; text-transform: uppercase; font-size: 0.7rem; }
-
-        @media (max-width: 768px) { .split-section { grid-template-columns: 1fr; } #cart-drawer { width: 100%; } }
+        .stat-icon {
+            background: #f1eee6;
+            border-radius: 50%;
+            padding: 1rem;
+            display: inline-flex;
+        }
     </style>
 </head>
-<body>
 
-    <div id="cart-drawer">
-        <div class="cart-header">
-            <h2 style="font-family: 'Playfair Display'; font-style: italic;">Mon Panier</h2>
-            <button onclick="toggleCart()" style="background:none; border:none; font-size:2rem; cursor:pointer;">&times;</button>
+<body class="bg-olive-50 text-olive-800 font-sans antialiased">
+
+    <!-- PANIER (DRAWER STYLE SHADCN) -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/40 z-[4000] hidden opacity-0 transition-opacity duration-300" onclick="toggleCart()"></div>
+    <div id="cart-drawer" class="fixed right-0 top-0 h-full w-full sm:w-[400px] bg-white z-[5000] translate-x-full cart-drawer shadow-2xl flex flex-col">
+        <div class="p-6 border-b flex justify-between items-center">
+            <h2 class="font-playfair italic text-2xl">Votre Panier</h2>
+            <button onclick="toggleCart()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
         </div>
-        <div id="cart-items"></div>
-        <div style="border-top: 1px solid #eee; padding-top: 1rem;">
-            <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:1.2rem;">
-                <span>Total:</span>
-                <span id="cart-total-price">0 MAD</span>
+        
+        <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-6">
+            <!-- Items injectés par JS -->
+        </div>
+
+        <div class="p-6 border-t bg-gray-50">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-gray-500">Total estimation</span>
+                <span id="cart-total-price" class="text-xl font-semibold">0 MAD</span>
             </div>
-            <button class="btn-checkout" onclick="checkoutWA()">
-                <i class="fab fa-whatsapp"></i> Commander via WhatsApp
+            <button onclick="checkoutWA()" class="w-full bg-[#25d366] text-white py-4 rounded-full font-bold flex items-center justify-center gap-3 hover:opacity-90 transition-all shadow-lg">
+                <i class="fab fa-whatsapp text-xl"></i>
+                Commander sur WhatsApp
             </button>
         </div>
     </div>
 
-    <nav>
-        <a href="#" class="logo">Zayena Olive</a>
-        <div onclick="toggleCart()" style="font-size: 1.5rem; cursor: pointer; position: relative;">
-            <i class="fas fa-shopping-bag"></i>
-            <span id="cart-count" style="position:absolute; top:-10px; right:-10px; background:var(--primary-gold); color:white; font-size:0.7rem; padding:2px 6px; border-radius:50%;">0</span>
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-[3000] glass-nav border-b border-black/5">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="#" class="font-playfair italic text-2xl font-bold tracking-tight">Zayena Olive</a>
+            
+            <div class="flex items-center gap-6">
+                <div class="hidden md:flex gap-8 text-xs font-semibold uppercase tracking-widest">
+                    <a href="#collection" class="hover:text-gold transition-colors">Produits</a>
+                    <a href="#about" class="hover:text-gold transition-colors">À propos</a>
+                    <a href="#reviews" class="hover:text-gold transition-colors">Avis</a>
+                </div>
+                <button onclick="toggleCart()" class="relative p-2">
+                    <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-gold text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full font-bold border-2 border-white">0</span>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <header>
-        <h1>L'Art de l'Olive</h1>
-        <p>Maison Artisanale de Qualité</p>
-    </header>
-
-    <section class="section" id="collection">
-        <h2 class="section-title">La Collection</h2>
-        <div class="product-grid">
-            <div class="product-card">
-                <div class="product-img" style="background-image: url('https://i.ibb.co/JWFRG3Lw/gamme1.jpg')"></div>
-                <h3>Olive & Citron</h3>
-                <span class="price">28 MAD</span>
-                <button class="btn-order" onclick="addToCart('Olive & Citron', 28, 'https://i.ibb.co/JWFRG3Lw/gamme1.jpg')">Ajouter au panier</button>
-            </div>
-            <div class="product-card">
-                <div class="product-img" style="background-image: url('https://i.ibb.co/rKgPb2mD/gamme2.jpg')"></div>
-                <h3>Olive & Thym</h3>
-                <span class="price">28 MAD</span>
-                <button class="btn-order" onclick="addToCart('Olive & Thym', 28, 'https://i.ibb.co/rKgPb2mD/gamme2.jpg')">Ajouter au panier</button>
-            </div>
-            <div class="product-card">
-                <div class="product-img" style="background-image: url('https://i.ibb.co/SWVNs61/gamme3.jpg')"></div>
-                <h3>Harissa Royale</h3>
-                <span class="price">30 MAD</span>
-                <button class="btn-order" onclick="addToCart('Harissa Royale', 30, 'https://i.ibb.co/SWVNs61/gamme3.jpg')" style="background:var(--primary-gold)">Ajouter au panier</button>
-            </div>
-            <div class="product-card">
-                <div class="product-img" style="background-image: url('https://i.ibb.co/s9c3W70W/gamme4.jpg')"></div>
-                <h3>Olive & Persil</h3>
-                <span class="price">28 MAD</span>
-                <button class="btn-order" onclick="addToCart('Olive & Persil', 28, 'https://i.ibb.co/s9c3W70W/gamme4.jpg')">Ajouter au panier</button>
+    <!-- HERO SECTION (IMAGE 1) -->
+    <section class="relative h-[90vh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="https://i.ibb.co/7NyGJ8Mm/image2.jpg" alt="Zayena Olive" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30"></div>
+        </div>
+        <div class="relative z-10 text-center px-6">
+            <h1 class="font-playfair italic text-white text-5xl md:text-8xl mb-6 tracking-tight">Le Goût de<br>l'Authenticité Marocaine</h1>
+            <p class="text-white/90 max-w-2xl mx-auto text-lg md:text-xl font-light leading-relaxed mb-10">
+                Tartinades d'olive artisanales faites avec des ingrédients premium et des recettes traditionnelles transmises de génération en génération.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#collection" class="bg-white text-olive-800 px-10 py-4 rounded-full font-bold uppercase text-xs tracking-widest hover:bg-gold hover:text-white transition-all shadow-xl">Voir la Collection</a>
+                <a href="#about" class="bg-white/20 backdrop-blur-md text-white border border-white/30 px-10 py-4 rounded-full font-bold uppercase text-xs tracking-widest hover:bg-white/40 transition-all">En Savoir Plus</a>
             </div>
         </div>
     </section>
 
-    <section class="split-section">
-        <img src="https://i.ibb.co/scYL7hK/photo4.jpg" class="split-img">
-        <div class="split-content">
-            <h2>Une tartinade,<br>mille recettes.</h2>
-            <p>"Nos tartinades sont préparées avec amour dans le respect des traditions. Chaque pot raconte l'histoire d'un terroir d'exception et d'un savoir-faire familial transmis depuis des générations."</p>
-            <p style="font-weight: 600; font-size: 0.9rem; color: var(--primary-gold); margin-top: 10px;">LIVRAISON GRATUITE DÈS 3 POTS !</p>
+    <!-- PILLARS SECTION (IMAGE 7) -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 text-center">
+            <div class="space-y-4">
+                <div class="stat-icon text-gold"><i data-lucide="leaf"></i></div>
+                <h3 class="font-bold uppercase text-sm tracking-tighter">Ingrédients Premium</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Olives sélectionnées et ingrédients naturels du Maroc.</p>
+            </div>
+            <div class="space-y-4">
+                <div class="stat-icon text-gold"><i data-lucide="scroll-text"></i></div>
+                <h3 class="font-bold uppercase text-sm tracking-tighter">Recette Authentique</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Recettes traditionnelles transmises avec soin.</p>
+            </div>
+            <div class="stat-icon-wrapper space-y-4">
+                <div class="stat-icon text-gold"><i data-lucide="truck"></i></div>
+                <h3 class="font-bold uppercase text-sm tracking-tighter">Livraison Rapide</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Expédition fiable pour vos produits frais.</p>
+            </div>
+            <div class="space-y-4">
+                <div class="stat-icon text-gold"><i data-lucide="heart"></i></div>
+                <h3 class="font-bold uppercase text-sm tracking-tighter">Préparé avec Amour</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Chaque pot est un dévouement à la qualité.</p>
+            </div>
         </div>
     </section>
 
-    <section class="split-section" style="background: transparent;">
-        <div class="split-content">
-            <h2>L'excellence au<br>quotidien.</h2>
-            <p>Parfait pour vos apéritifs, vos salades ou simplement sur une tranche de pain frais. Découvrez une explosion de saveurs naturelles.</p>
+    <!-- COLLECTION (IMAGES 2 & 3) -->
+    <section id="collection" class="py-24 px-6 bg-olive-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-playfair text-4xl md:text-5xl italic mb-4">Notre Collection</h2>
+                <div class="w-16 h-1 bg-gold mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Produit 1 -->
+                <div class="product-card group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all border border-black/5 p-4">
+                    <div class="h-80 overflow-hidden rounded-[1.5rem] mb-6">
+                        <img src="https://i.ibb.co/JWFRG3Lw/gamme1.jpg" alt="Olive Citron" class="w-full h-full object-cover">
+                    </div>
+                    <div class="text-center px-4 pb-4">
+                        <h3 class="font-playfair text-2xl italic mb-2">Olive-Citron</h3>
+                        <p class="text-gray-400 text-xs uppercase tracking-widest mb-4">Mélange frais de citron et olive</p>
+                        <span class="text-gold font-bold text-xl block mb-6">28 MAD</span>
+                        <button onclick="addToCart('Olive-Citron', 28, 'https://i.ibb.co/JWFRG3Lw/gamme1.jpg')" class="w-full bg-olive-800 text-white py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-gold transition-colors">Ajouter au Panier</button>
+                    </div>
+                </div>
+
+                <!-- Produit 2 -->
+                <div class="product-card group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all border border-black/5 p-4">
+                    <div class="h-80 overflow-hidden rounded-[1.5rem] mb-6">
+                        <img src="https://i.ibb.co/rKgPb2mD/gamme2.jpg" alt="Thym" class="w-full h-full object-cover">
+                    </div>
+                    <div class="text-center px-4 pb-4">
+                        <h3 class="font-playfair text-2xl italic mb-2">Thym</h3>
+                        <p class="text-gray-400 text-xs uppercase tracking-widest mb-4">Tartinade infusée au thym</p>
+                        <span class="text-gold font-bold text-xl block mb-6">28 MAD</span>
+                        <button onclick="addToCart('Thym', 28, 'https://i.ibb.co/rKgPb2mD/gamme2.jpg')" class="w-full bg-olive-800 text-white py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-gold transition-colors">Ajouter au Panier</button>
+                    </div>
+                </div>
+
+                <!-- Produit 3 -->
+                <div class="product-card group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all border border-black/5 p-4">
+                    <div class="h-80 overflow-hidden rounded-[1.5rem] mb-6">
+                        <img src="https://i.ibb.co/SWVNs61/gamme3.jpg" alt="Harissa" class="w-full h-full object-cover">
+                    </div>
+                    <div class="text-center px-4 pb-4">
+                        <h3 class="font-playfair text-2xl italic mb-2">Harissa</h3>
+                        <p class="text-gray-400 text-xs uppercase tracking-widest mb-4">Mélange épicé harissa et olive</p>
+                        <span class="text-gold font-bold text-xl block mb-6">30 MAD</span>
+                        <button onclick="addToCart('Harissa', 30, 'https://i.ibb.co/SWVNs61/gamme3.jpg')" class="w-full bg-gold text-white py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-olive-800 transition-colors shadow-lg">Ajouter au Panier</button>
+                    </div>
+                </div>
+
+                <!-- Produit 4 -->
+                <div class="product-card group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all border border-black/5 p-4">
+                    <div class="h-80 overflow-hidden rounded-[1.5rem] mb-6">
+                        <img src="https://i.ibb.co/s9c3W70W/gamme4.jpg" alt="Persil" class="w-full h-full object-cover">
+                    </div>
+                    <div class="text-center px-4 pb-4">
+                        <h3 class="font-playfair text-2xl italic mb-2">Persil</h3>
+                        <p class="text-gray-400 text-xs uppercase tracking-widest mb-4">Combinaison de persil et olive</p>
+                        <span class="text-gold font-bold text-xl block mb-6">28 MAD</span>
+                        <button onclick="addToCart('Persil', 28, 'https://i.ibb.co/s9c3W70W/gamme4.jpg')" class="w-full bg-olive-800 text-white py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-gold transition-colors">Ajouter au Panier</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <img src="https://i.ibb.co/LhcFnXFY/photo5.jpg" class="split-img">
     </section>
 
-    <section class="full-img-section">
-        <div class="quality-box">
-            <h2 style="font-family:'Playfair Display'; font-style:italic; font-size:2rem; margin-bottom:1rem;">Qualité Garantie</h2>
-            <p>100% Naturel & Artisanal. Sans conservateurs ni additifs. Juste le goût authentique.</p>
+    <!-- MILLE FAÇONS (IMAGES 4 & 5) -->
+    <section id="about" class="py-24 bg-white px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="font-playfair text-4xl md:text-5xl italic mb-6">Mille Façons de Savourer</h2>
+                <p class="text-gray-500 max-w-xl mx-auto">Découvrez comment nos tartinades peuvent transformer vos repas quotidiens en expériences extraordinaires.</p>
+            </div>
+
+            <!-- Bruschettas -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
+                <div class="space-y-8 order-2 lg:order-1">
+                    <h3 class="font-playfair text-3xl italic">Bruschettas Gourmandes</h3>
+                    <p class="text-gray-600 leading-relaxed text-lg">
+                        Tartinez généreusement nos tartinades d'olive sur du pain grillé croustillant. Ajoutez des tomates fraîches et un trait d'huile d'olive pour une entrée élégante.
+                    </p>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="text-gold w-5 h-5"></i> Parfait pour les apéritifs</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="text-gold w-5 h-5"></i> Prêt en moins de 5 minutes</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="text-gold w-5 h-5"></i> Impressionne vos invités</li>
+                    </ul>
+                </div>
+                <div class="rounded-[3rem] overflow-hidden h-[500px] shadow-2xl order-1 lg:order-2">
+                    <img src="https://i.ibb.co/scYL7hK/photo4.jpg" alt="Bruschetta" class="w-full h-full object-cover">
+                </div>
+            </div>
+
+            <!-- Accompagnement -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="rounded-[3rem] overflow-hidden h-[500px] shadow-2xl">
+                    <img src="https://i.ibb.co/LhcFnXFY/photo5.jpg" alt="Planche Apéro" class="w-full h-full object-cover">
+                </div>
+                <div class="space-y-8">
+                    <h3 class="font-playfair text-3xl italic">Accompagnement Parfait</h3>
+                    <p class="text-gray-600 leading-relaxed text-lg">
+                        Servez nos créations avec du pain frais, des crackers ou des légumes crus. C'est l'âme des repas en famille ou entre amis.
+                    </p>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="text-gold w-5 h-5"></i> Saveurs authentiques marocaines</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="text-gold w-5 h-5"></i> 100% Naturel sans conservateurs</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="text-gold w-5 h-5"></i> Idéal pour les pique-niques</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <h2 class="logo" style="color:white; font-size:2.5rem; margin-bottom:2rem;">Zayena Olive</h2>
-        <div class="social-links">
-            <a href="https://www.tiktok.com/@zayena.olive?_r=1&_t=ZS-940bWqHcptM" target="_blank"><i class="fab fa-tiktok"></i></a>
-            <a href="https://www.instagram.com/zayena.olive/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://wa.me/212690238881" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <!-- QUALITÉ / NOTRE FIERTÉ (IMAGE 6) -->
+    <section class="py-24 bg-olive-100 px-6">
+        <div class="max-w-6xl mx-auto bg-white rounded-[4rem] overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-2">
+            <div class="p-12 md:p-20 flex flex-col justify-center space-y-8">
+                <h2 class="font-playfair text-4xl italic">Zayena Olive - Notre Fierté</h2>
+                <p class="text-gray-600 leading-relaxed italic">
+                    "Zayena Olive s'engage à apporter les saveurs authentiques du Maroc à vos tables. Avec une passion pour la qualité, nous avons construit une communauté de clients fidèles qui apprécient l'excellence du 100% naturel."
+                </p>
+                <div class="flex items-center gap-4 text-gold font-bold uppercase text-xs tracking-tighter">
+                    <span class="w-12 h-px bg-gold"></span>
+                    Maison Artisanale
+                </div>
+            </div>
+            <div class="h-full min-h-[400px]">
+                <img src="https://i.ibb.co/ZRV0HD6j/image.jpg" alt="Zayena Jar" class="w-full h-full object-cover">
+            </div>
         </div>
-        <p style="margin-top:3rem; opacity:0.4; font-size:0.7rem;">© 2026 ZAYENA OLIVE — TOUS DROITS RÉSERVÉS</p>
+    </section>
+
+    <!-- REVIEWS -->
+    <section id="reviews" class="py-24 px-6 bg-olive-900 text-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-playfair italic text-4xl mb-4 tracking-tight">Ce que Disent Nos Clients</h2>
+                <div class="w-12 h-1 bg-gold mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white/5 p-10 rounded-[2.5rem] border border-white/10 text-center space-y-6">
+                    <div class="text-gold flex justify-center gap-1">
+                        <i data-lucide="star" class="fill-gold"></i><i data-lucide="star" class="fill-gold"></i><i data-lucide="star" class="fill-gold"></i><i data-lucide="star" class="fill-gold"></i><i data-lucide="star" class="fill-gold"></i>
+                    </div>
+                    <p class="italic text-lg text-white/80">"La tartinade au citron est une révolution pour mes apéros. Frais et authentique !"</p>
+                    <span class="block text-xs font-bold uppercase tracking-widest text-gold">Sarah M.</span>
+                </div>
+                <div class="bg-white/5 p-10 rounded-[2.5rem] border border-white/10 text-center space-y-6">
+                    <div class="text-gold flex justify-center gap-1">
+                        <i data-lucide="star" class="fill-gold"></i><i data-lucide="star" class="fill-gold"></i><i data-lucide="star" class="fill-gold"></i><i data-lucide="star" class="fill-gold"></i><i data-lucide="star" class="fill-gold"></i>
+                    </div>
+                    <p class="italic text-lg text-white/80">"L'Harissa est parfaitement dosée. On sent le vrai goût du terroir."</p>
+                    <span class="block text-xs font-bold uppercase tracking-widest text-gold">Ahmed K.</span>
+                </div>
+                <div class="bg-white/5 p-10 rounded-[2.5rem] border border-white/10 text-center space-y-6">
+                    <div class="text-gold flex justify-center gap-1">
+                        <i data-lucide="star" class="fill-gold"></i><i data-lucide="star" class="fill-gold"></i><i data-lucide="star" class="fill-gold"></i><i data-lucide="star" class="fill-gold"></i><i data-lucide="star" class="fill-gold"></i>
+                    </div>
+                    <p class="italic text-lg text-white/80">"Service rapide et qualité irréprochable. Mes enfants adorent la version au persil."</p>
+                    <span class="block text-xs font-bold uppercase tracking-widest text-gold">Elena R.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-olive-900 border-t border-white/10 py-16 text-center text-white/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="font-playfair italic text-white text-4xl mb-12">Zayena Olive</h2>
+            
+            <div class="flex justify-center gap-10 mb-12">
+                <a href="https://www.tiktok.com/@zayena.olive?_r=1&_t=ZS-940bWqHcptM" class="hover:text-gold transition-all transform hover:-translate-y-1">
+                    <i class="fab fa-tiktok text-3xl"></i>
+                </a>
+                <a href="https://www.instagram.com/zayena.olive/" class="hover:text-gold transition-all transform hover:-translate-y-1">
+                    <i class="fab fa-instagram text-3xl"></i>
+                </a>
+                <a href="https://wa.me/212690238881" class="hover:text-gold transition-all transform hover:-translate-y-1">
+                    <i class="fab fa-whatsapp text-3xl"></i>
+                </a>
+            </div>
+
+            <p class="text-[10px] uppercase tracking-[4px] font-bold">© 2026 Zayena Olive — Marrakech. Tous droits réservés.</p>
+        </div>
     </footer>
 
     <script>
+        // Initialisation des icônes
+        lucide.createIcons();
+
+        // Gestion du Panier
         let cart = [];
-        function toggleCart() { document.getElementById('cart-drawer').classList.toggle('active'); }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('cart-overlay');
+            
+            if (drawer.classList.contains('translate-x-full')) {
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.add('opacity-100'), 10);
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.remove('opacity-100');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+                document.body.style.overflow = 'auto';
+            }
+        }
 
         function addToCart(name, price, img) {
-            cart.push({name, price, img});
+            cart.push({ name, price, img });
             updateCart();
-            document.getElementById('cart-drawer').classList.add('active');
+            toggleCart(); // Ouvre automatiquement le panier lors de l'ajout
         }
 
         function removeItem(index) {
@@ -187,25 +372,45 @@
         }
 
         function updateCart() {
-            const itemsCont = document.getElementById('cart-items');
-            const countEl = document.getElementById('cart-count');
-            const totalEl = document.getElementById('cart-total-price');
-            itemsCont.innerHTML = '';
-            let total = 0;
+            const container = document.getElementById('cart-items');
+            const count = document.getElementById('cart-count');
+            const total = document.getElementById('cart-total-price');
+            
+            container.innerHTML = '';
+            let totalValue = 0;
+
             cart.forEach((item, index) => {
-                total += item.price;
-                itemsCont.innerHTML += `<div class="cart-item"><img src="${item.img}"><div style="flex-grow:1"><h4 style="font-size:0.8rem">${item.name}</h4><span>${item.price} MAD</span></div><button onclick="removeItem(${index})" style="background:none; border:none; color:red; cursor:pointer;">&times;</button></div>`;
+                totalValue += item.price;
+                container.innerHTML += `
+                    <div class="flex items-center gap-4 bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                        <img src="${item.img}" class="w-16 h-16 object-cover rounded-xl shadow-sm">
+                        <div class="flex-grow">
+                            <h4 class="font-playfair italic text-lg leading-tight">${item.name}</h4>
+                            <p class="text-gold font-bold text-sm">${item.price} MAD</p>
+                        </div>
+                        <button onclick="removeItem(${index})" class="text-gray-300 hover:text-red-500 transition-colors">
+                            <i data-lucide="trash-2" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                `;
             });
-            countEl.innerText = cart.length;
-            totalEl.innerText = total + " MAD";
+
+            count.innerText = cart.length;
+            total.innerText = totalValue + " MAD";
+            lucide.createIcons(); // Recréer les icônes trash
         }
 
         function checkoutWA() {
-            if(cart.length === 0) return alert("Votre panier est vide");
-            let msg = "Bonjour Zayena Olive, je souhaite commander :\n\n";
-            cart.forEach(i => msg += `- ${i.name} (${i.price} MAD)\n`);
-            msg += `\nTotal : ${document.getElementById('cart-total-price').innerText}`;
-            window.open(`https://wa.me/212690238881?text=${encodeURIComponent(msg)}`);
+            if (cart.length === 0) return alert("Votre panier est vide");
+            
+            let message = "Bonjour Zayena Olive, je souhaite commander :\n\n";
+            cart.forEach(item => {
+                message += `• ${item.name} (${item.price} MAD)\n`;
+            });
+            message += `\nTotal: ${document.getElementById('cart-total-price').innerText}`;
+            message += "\n\nMerci de confirmer la livraison.";
+            
+            window.open(`https://wa.me/212690238881?text=${encodeURIComponent(message)}`);
         }
     </script>
 </body>
