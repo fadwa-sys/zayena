@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zayena Olive | Maison de Tartinades Artisanales</title>
     
-    <!-- Tailwind CSS (Shadcn Style Foundation) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Fonts: Playfair for Luxury, Montserrat for Modernity -->
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
     
     <!-- Icons -->
@@ -58,34 +58,102 @@
             padding: 1rem;
             display: inline-flex;
         }
+        input:focus {
+            border-color: #c5a059 !important;
+            box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.1);
+        }
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 
 <body class="bg-olive-50 text-olive-800 font-sans antialiased">
 
-    <!-- PANIER (DRAWER STYLE SHADCN) -->
+    <!-- PANIER (DRAWER AVEC TUNNEL DE COMMANDE) -->
     <div id="cart-overlay" class="fixed inset-0 bg-black/40 z-[4000] hidden opacity-0 transition-opacity duration-300" onclick="toggleCart()"></div>
-    <div id="cart-drawer" class="fixed right-0 top-0 h-full w-full sm:w-[400px] bg-white z-[5000] translate-x-full cart-drawer shadow-2xl flex flex-col">
-        <div class="p-6 border-b flex justify-between items-center">
-            <h2 class="font-playfair italic text-2xl">Votre Panier</h2>
+    <div id="cart-drawer" class="fixed right-0 top-0 h-full w-full sm:w-[420px] bg-white z-[5000] translate-x-full cart-drawer shadow-2xl flex flex-col">
+        
+        <div class="p-6 border-b flex justify-between items-center bg-olive-50">
+            <h2 class="font-playfair italic text-2xl" id="cart-title">Votre Panier</h2>
             <button onclick="toggleCart()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
         </div>
         
-        <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-6">
-            <!-- Items injectés par JS -->
+        <div id="cart-scroll-container" class="flex-grow overflow-y-auto">
+            <!-- VUE 1 : RÉCAPITULATIF DES ARTICLES -->
+            <div id="cart-view-items" class="p-6 space-y-6">
+                <div id="cart-items" class="space-y-6">
+                    <!-- Items injectés par JS -->
+                </div>
+            </div>
+
+            <!-- VUE 2 : FORMULAIRE DE COMMANDE -->
+            <div id="cart-view-checkout" class="p-6 space-y-8 hidden">
+                <button onclick="showItems()" class="text-xs font-bold uppercase tracking-widest text-gray-400 flex items-center gap-2 mb-4">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Retour au panier
+                </button>
+
+                <div class="space-y-4">
+                    <h3 class="font-playfair text-xl italic border-b pb-2">Informations de livraison</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" id="cust-fname" placeholder="Prénom" class="w-full p-4 rounded-xl border border-gray-100 bg-gray-50 focus:outline-none">
+                        <input type="text" id="cust-lname" placeholder="Nom" class="w-full p-4 rounded-xl border border-gray-100 bg-gray-50 focus:outline-none">
+                    </div>
+                    <input type="tel" id="cust-phone" placeholder="Téléphone" class="w-full p-4 rounded-xl border border-gray-100 bg-gray-50 focus:outline-none">
+                    <input type="text" id="cust-address" placeholder="Ville et adresse complète" class="w-full p-4 rounded-xl border border-gray-100 bg-gray-50 focus:outline-none">
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-playfair text-xl italic border-b pb-2">Mode de paiement</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center p-4 rounded-xl border border-gray-100 bg-gray-50 cursor-pointer">
+                            <input type="radio" name="pay-mode" value="Paiement à la livraison" checked class="accent-gold w-4 h-4">
+                            <span class="ml-3 text-sm font-medium">Paiement à la livraison (Cash)</span>
+                        </label>
+                        <label class="flex items-center p-4 rounded-xl border border-gray-100 bg-gray-50 cursor-pointer">
+                            <input type="radio" name="pay-mode" value="Virement Bancaire" class="accent-gold w-4 h-4">
+                            <span class="ml-3 text-sm font-medium">Virement / Versement Bancaire</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VUE 3 : CONFIRMATION FINALE (SUCCÈS) -->
+            <div id="cart-view-success" class="p-8 text-center space-y-6 hidden">
+                <div class="success-checkmark flex items-center justify-center bg-green-100 text-green-500 rounded-full mx-auto">
+                    <i data-lucide="check" class="w-10 h-10"></i>
+                </div>
+                <h3 class="font-playfair text-3xl italic">Commande reçue !</h3>
+                <p class="text-gray-500">Merci pour votre confiance. Nous préparons vos produits avec le plus grand soin.</p>
+                <div id="order-summary-box" class="bg-gray-50 p-6 rounded-2xl text-left text-sm space-y-2 border border-dashed border-gray-200">
+                    <!-- Détails injectés -->
+                </div>
+                <button onclick="toggleCart(); resetAll();" class="w-full border border-olive-800 py-4 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-olive-800 hover:text-white transition-all">
+                    Fermer le panier
+                </button>
+            </div>
         </div>
 
-        <div class="p-6 border-t bg-gray-50">
-            <div class="flex justify-between items-center mb-4">
-                <span class="text-gray-500">Total estimation</span>
-                <span id="cart-total-price" class="text-xl font-semibold">0 MAD</span>
+        <div id="cart-footer" class="p-6 border-t bg-olive-50">
+            <div class="flex justify-between items-center mb-6">
+                <span class="text-gray-500 font-medium">Total estimation</span>
+                <span id="cart-total-price" class="text-2xl font-bold text-olive-800">0 MAD</span>
             </div>
-            <button onclick="checkoutWA()" class="w-full bg-[#25d366] text-white py-4 rounded-full font-bold flex items-center justify-center gap-3 hover:opacity-90 transition-all shadow-lg">
-                <i class="fab fa-whatsapp text-xl"></i>
-                Commander sur WhatsApp
-            </button>
+            
+            <div id="footer-btn-container">
+                <!-- Bouton Passer à la caisse -->
+                <button onclick="showCheckout()" id="btn-goto-checkout" class="w-full bg-olive-800 text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-gold transition-all shadow-lg">
+                    Commander mes produits
+                </button>
+                <!-- Bouton Confirmation Interne -->
+                <button onclick="checkoutFinal()" id="btn-submit-order" class="hidden w-full bg-gold text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-3 hover:opacity-90 transition-all shadow-lg">
+                    Valider ma commande
+                </button>
+            </div>
         </div>
     </div>
 
@@ -281,7 +349,7 @@
         </div>
     </section>
 
-    <!-- REVIEWS (VOS AVIS CLIENTS) -->
+    <!-- REVIEWS -->
     <section id="reviews" class="py-24 px-6 bg-olive-900 text-white">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
@@ -337,7 +405,6 @@
     </footer>
 
     <script>
-        // Initialisation des icônes
         lucide.createIcons();
 
         // Gestion du Panier
@@ -355,19 +422,46 @@
             } else {
                 drawer.classList.add('translate-x-full');
                 overlay.classList.remove('opacity-100');
-                setTimeout(() => overlay.classList.add('hidden'), 300);
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 300);
                 document.body.style.overflow = 'auto';
             }
         }
 
+        function showCheckout() {
+            if (cart.length === 0) return alert("Votre panier est vide");
+            document.getElementById('cart-view-items').classList.add('hidden');
+            document.getElementById('cart-view-checkout').classList.remove('hidden');
+            document.getElementById('btn-goto-checkout').classList.add('hidden');
+            document.getElementById('btn-submit-order').classList.remove('hidden');
+            document.getElementById('cart-title').innerText = "Ma Commande";
+            document.getElementById('cart-scroll-container').scrollTop = 0;
+        }
+
+        function showItems() {
+            document.getElementById('cart-view-items').classList.remove('hidden');
+            document.getElementById('cart-view-checkout').classList.add('hidden');
+            document.getElementById('cart-view-success').classList.add('hidden');
+            document.getElementById('btn-goto-checkout').classList.remove('hidden');
+            document.getElementById('btn-submit-order').classList.add('hidden');
+            document.getElementById('cart-footer').classList.remove('hidden');
+            document.getElementById('cart-title').innerText = "Votre Panier";
+        }
+
         function addToCart(name, price, img) {
-            cart.push({ name, price, img });
+            const existing = cart.find(item => item.name === name);
+            if(existing) {
+                existing.qty++;
+            } else {
+                cart.push({ name, price, img, qty: 1 });
+            }
             updateCart();
             toggleCart(); 
         }
 
-        function removeItem(index) {
-            cart.splice(index, 1);
+        function removeItem(name) {
+            cart = cart.filter(item => item.name !== name);
             updateCart();
         }
 
@@ -378,39 +472,72 @@
             
             container.innerHTML = '';
             let totalValue = 0;
+            let totalQty = 0;
 
-            cart.forEach((item, index) => {
-                totalValue += item.price;
+            cart.forEach((item) => {
+                totalValue += (item.price * item.qty);
+                totalQty += item.qty;
                 container.innerHTML += `
                     <div class="flex items-center gap-4 bg-gray-50 p-4 rounded-2xl border border-gray-100">
                         <img src="${item.img}" class="w-16 h-16 object-cover rounded-xl shadow-sm">
                         <div class="flex-grow">
                             <h4 class="font-playfair italic text-lg leading-tight">${item.name}</h4>
-                            <p class="text-gold font-bold text-sm">${item.price} MAD</p>
+                            <p class="text-gold font-bold text-sm">${item.price} MAD <span class="text-gray-400 font-normal">x ${item.qty}</span></p>
                         </div>
-                        <button onclick="removeItem(${index})" class="text-gray-300 hover:text-red-500 transition-colors">
+                        <button onclick="removeItem('${item.name}')" class="text-gray-300 hover:text-red-500 transition-colors">
                             <i data-lucide="trash-2" class="w-5 h-5"></i>
                         </button>
                     </div>
                 `;
             });
 
-            count.innerText = cart.length;
+            count.innerText = totalQty;
             total.innerText = totalValue + " MAD";
             lucide.createIcons();
         }
 
-        function checkoutWA() {
-            if (cart.length === 0) return alert("Votre panier est vide");
+        function checkoutFinal() {
+            const fname = document.getElementById('cust-fname').value;
+            const lname = document.getElementById('cust-lname').value;
+            const phone = document.getElementById('cust-phone').value;
+            const address = document.getElementById('cust-address').value;
+            const payment = document.querySelector('input[name="pay-mode"]:checked').value;
+
+            if (!fname || !lname || !phone || !address) {
+                return alert("Veuillez remplir toutes vos informations de livraison.");
+            }
             
-            let message = "Bonjour Zayena Olive, je souhaite commander :\n\n";
-            cart.forEach(item => {
-                message += `• ${item.name} (${item.price} MAD)\n`;
-            });
-            message += `\nTotal: ${document.getElementById('cart-total-price').innerText}`;
-            message += "\n\nMerci de confirmer la livraison.";
+            // Affichage vue Succès
+            document.getElementById('cart-view-checkout').classList.add('hidden');
+            document.getElementById('cart-view-success').classList.remove('hidden');
+            document.getElementById('cart-footer').classList.add('hidden');
+            document.getElementById('cart-title').innerText = "Confirmation";
+
+            // Résumé
+            const summaryBox = document.getElementById('order-summary-box');
+            let itemsHtml = cart.map(i => `<div>• ${i.name} x${i.qty}</div>`).join('');
+            summaryBox.innerHTML = `
+                <div class="font-bold mb-2">Détails de l'envoi :</div>
+                <div>${fname} ${lname}</div>
+                <div>${phone}</div>
+                <div class="mb-4">${address}</div>
+                <div class="font-bold border-t pt-2">Articles :</div>
+                ${itemsHtml}
+                <div class="mt-4 pt-2 border-t font-bold text-olive-800">Total : ${document.getElementById('cart-total-price').innerText}</div>
+                <div class="text-[10px] text-gray-400 mt-2 italic">Mode : ${payment}</div>
+            `;
             
-            window.open(`https://wa.me/212690238881?text=${encodeURIComponent(message)}`);
+            lucide.createIcons();
+        }
+
+        function resetAll() {
+            cart = [];
+            updateCart();
+            document.getElementById('cust-fname').value = '';
+            document.getElementById('cust-lname').value = '';
+            document.getElementById('cust-phone').value = '';
+            document.getElementById('cust-address').value = '';
+            showItems();
         }
     </script>
 </body>
